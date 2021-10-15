@@ -140,19 +140,6 @@ datasink = Node(DataSink(base_directory=experiment_dir,
 preproc = Workflow(name='preproc')
 preproc.base_dir = path.join(experiment_dir, working_dir)
 
-# Connect all components of the preprocessing workflow
-# preproc.connect([
-#         (infosource, selectfiles, [('subject_id', 'subject_id'),
-#                                    ('session', 'session'),
-#                                    ('task_name', 'task_name')]),
-#         (selectfiles, 'func', motion_correct,  'in_file'),
-#         (selectfiles, ('func', getmiddlevolume), extract_ref, 't_min'),
-#         (extract_ref, 'roi_file', motion_correct, 'ref_file'),
-#         (motion_correct, 'movpar_file', plot_motion, 'in_file'),
-#         (motion_correct,  datasink, [('out_file', 'timeseries')]),
-#         (motion_correct,  datasink, [('movpar_file', 'motion_parameters')]),
-# ])
-
 preproc.connect([(infosource, selectfiles, [('subject_id', 'subject_id'),
                                    ('session', 'session'),
                                    ('task_name', 'task_name'),
@@ -165,16 +152,10 @@ preproc.connect(extract_ref, 'roi_file', motion_correct, 'ref_file')
 preproc.connect([(motion_correct, normalize_motion, [('par_file', 'in_file')])])
 preproc.connect(motion_correct, 'par_file', plot_motion, 'in_file')
 preproc.connect(motion_correct, 'par_file', calc_fwd, 'in_file')
-# preproc.connect(motion_correct, 'out_file', calc_dvars, 'in_file')
 preproc.connect([(plot_motion,  datasink, [('out_file', 'motion_plots')])])
 preproc.connect([(motion_correct,  datasink, [('out_file', 'timeseries')])])
 preproc.connect([(motion_correct,  datasink, [('par_file', 'motion_parameters')])])
-# preproc.connect([(motion_correct,  bold_confounds_wf, [('par_file','inputnode.movpar_file')])])
-# preproc.connect([(motion_correct,  bold_confounds_wf, [('out_file', 'inputnode.bold')])])
 preproc.connect([(calc_fwd, datasink, [('out_file', 'motion_fwd')] )])
-# preproc.connect([(calc_dvars, datasink, [('out_std', 'motion_dvars_std')] )])
-# preproc.connect([(bold_confounds_wf, datasink, [('outputnode.confounds_file', 'confounds_file'),
-#                                                 ('outputnode.confounds_metadata','confounds_metadata')])])
 
 # Create preproc output graph
 preproc.write_graph(graph2use='colored', format='png', simple_form=True)
