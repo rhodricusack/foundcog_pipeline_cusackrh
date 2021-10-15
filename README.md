@@ -4,9 +4,9 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
  www.foundcog.org  foundcog@tcd.ie  www.cusacklab.org 
  
 ## Main files
-* run_heudiconv.py        converts all founcog data in /mnt/siemens-dicom/anon to BIDS format using heuristic.py 
-* foundcog_preproc.py     runs nipype pipeline to do preprocessing
-* create_qa_report.py     creates reports (e.g., motion HTML and figure)
+* *run_heudiconv.py*      converts all founcog data in /mnt/siemens-dicom/anon to BIDS format using heuristic.py 
+* *foundcog_preproc.py*     runs nipype pipeline to do preprocessing
+* *create_qa_report.py*     creates reports (e.g., motion HTML and figure)
 
 
 ## General 
