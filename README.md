@@ -15,6 +15,10 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
 * nipype legacy workflows https://github.com/niflows/nipype1-workflows
 
 ## Road map of things that should/could be implemented
+### Workflow distinctions
+* Native space vs. normalised space
+* By data type
+
 ### All fMRI 
 * Distortion correction using phase encode polarity images
     - base on sdc flow from fmriprep?
@@ -28,11 +32,12 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
 * Normalisation from EPI
     - prerequisite for any group analysis steps
     - could be done on overall mean across all time series (procedure for using EPIs from adults), or on sub-runs after censoring (Turk-Browne/Saxe labs)
+    - what infant template do we use? We have previously used UNC. Another option would be to make our own template
+    - need to normalise infant template to adult template if we're to relate our results to adults
 * Region of interest definition
    - presumably through back-normalisation. What ROIs should we use? Shen like normal?
     
 ### Videos fMRI
-* Inter-(subject+session) correlation
 * MVPA modelling (within subject)
     - RDM
     - MDS, clustering  
@@ -40,8 +45,10 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
 * MVPA modelling (across subject)
     - RDM
     - Within vs. across video contrast          *<-- key QA metric AND key outcome* 
-* regression model of perceptual and semantic factors
-* model contextual order effects (need to sort out adult analysis first)
+* Inter-(subject+session) correlation
+* Regression model of perceptual and semantic factors
+* Model contextual order effects
+    * need to sort out adult analysis first
 
 ### Pictures fMRI
 * Stimulus minus baseline                       *<-- key QA metric*
@@ -85,6 +92,10 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
 
 ## Log of development
 ### 2021-10-1 [RC]
+Set up 
+* *run_heudiconv.py*      converts all founcog data in /mnt/siemens-dicom/anon to BIDS format using heuristic.py 
+* *foundcog_preproc.py*     runs nipype pipeline to do preprocessing
+* *create_qa_report.py*     creates reports (e.g., motion HTML and figure)
 
 ### 2021-10-10 [RC]
 * Set up initial pipeline, using MCFLIRT
