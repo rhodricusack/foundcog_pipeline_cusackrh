@@ -16,9 +16,13 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
     - censoring (i.e., cut out chunks of data)
     - framewise displacement                      *<-- key QA metric*
     - summarise proportion of data used- i.e., for each desired session, was it acquired at all, and how much of the desired length of data was useable         *<-- key QA metric*
-* Normalisation
+    - slice-wise motion correction with EDDY (like dHCP)
+    - deep learning reco
+* Normalisation from EPI
     - prerequisite for any group analysis steps
     - could be done on overall mean across all time series (procedure for using EPIs from adults), or on sub-runs after censoring (Turk-Browne/Saxe labs)
+* Region of interest definition
+   - presumably through back-normalisation. What ROIs should we use? Shen like normal?
     
 ### Videos fMRI
 * Inter-(subject+session) correlation
@@ -57,7 +61,20 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
 * Relate connectivity of voxels with their video selectivity (c.f., Laura)
 
 ### Structural, T2
+* Normalise from these
+* Quantify structures?
 
+## Other Major Analysis Directions
+### MVPA: Bayesian and Searchlight
+* Bayesian MVPA may be more sensitive
+* Searchlight MVPA to give us whole brain maps of semantic representation and so on
+
+### Cerebellum
+* Graham's interest. Maedbh King, Joern Dierdichsen etc
+* Should do some QA on cerebellar data (e.g., check coverage)
+
+### Surface analysis
+* If we keep getting T2 structural, we could run surface-based analysis
 
 ## Log of development
 ### 2021-10-10 [RC]
