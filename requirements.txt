@@ -4,3 +4,5 @@ pybids
 templateflow
 niworkflows
 fmriprep
+Jinja2
+ptitprince

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}
+    Head motion correction
+{% endblock %}
+
+{% block content %}
+    {% for sub, sub_dict in individual_runs.items() %}
+        <h2>Participant {{ sub }}</h2>
+        {% for task, task_dict in sub_dict.items() %}
+            <h2>Task {{ task }}</h3>
+            {% for ses, ses_dict in task_dict.items() %}
+                {% for run, run_val in ses_dict.items() %}
+                    <h4>  Session {{ ses }}, run {{ run }}</h4>
+                    <div class="row align-items-start">
+                    <div class="col"><img src="{{ run_val }}_trans.png" /></div>
+                    <div class="col"><img src="{{ run_val }}_rot.png" /></div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

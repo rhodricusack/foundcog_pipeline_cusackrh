@@ -11,10 +11,11 @@ import nipype.algorithms.confounds as confounds
 from nipype import Workflow, Node, MapNode
 from bids.layout import BIDSLayout
 from niworkflows.interfaces.confounds import NormalizeMotionParams
-from fmriprep.workflows.bold.confounds import init_bold_confs_wf
-from fmriprep import config
+#from fmriprep.workflows.bold.confounds import init_bold_confs_wf
+#from fmriprep.workflows.bold import init_bold_hmc_wf
+#from fmriprep import config
 from os import path
-
+from nipype.algorithms import confounds as ni_confounds
 
 experiment_dir = '/projects/pi-cusackrh/HPC_18_01039/foundcog/bids'
 output_dir = 'deriv'
@@ -26,6 +27,7 @@ layout = BIDSLayout(experiment_dir)
 subject_list = layout.get_subjects()
 task_list = layout.get_tasks()
 session_list = layout.get_sessions()
+run_list = layout.get_runs()
 
 # # TR of functional images
 with open(path.join(experiment_dir,'task-pictures_bold.json'), 'rt') as fp:
@@ -42,21 +44,22 @@ print(f'TR is {TR}')
 # 
 
 # Make a list of functional steps to do
-iter_items= {'sub' : [], 'ses':[], 'task': []}
+iter_items= {'sub' : [], 'ses':[], 'task': [], 'run':[]}
 
 # Template for func files
-func_file_run_1 = path.join('sub-{subject_id}', 'ses-{session}', 'func', 'sub-{subject_id}_ses-{session}_dir-AP_task-{task_name}_run-001_bold.nii.gz')
-func_file_allruns = path.join('sub-{subject_id}', 'ses-{session}', 'func', 'sub-{subject_id}_ses-{session}_dir-AP_task-{task_name}_run-*_bold.nii.gz')
+func_file = path.join('sub-{subject_id}', 'ses-{session}', 'func', 'sub-{subject_id}_ses-{session}_dir-AP_task-{task_name}_run-{run:03d}_bold.nii.gz')
 
 for sub in subject_list:
     for ses in session_list:
         for task in task_list:
-            info = {'subject_id':sub, 'session':ses, 'task_name':task}
-            target_file = func_file_run_1.format(**info)
-            if path.isfile(path.join(experiment_dir, target_file)):
-                iter_items['sub'].append(sub)
-                iter_items['ses'].append(ses)
-                iter_items['task'].append(task)
+            for run in run_list:
+                info = {'subject_id':sub, 'session':ses, 'task_name':task, 'run': run}
+                target_file = func_file.format(**info)
+                if path.isfile(path.join(experiment_dir, target_file)):
+                    iter_items['sub'].append(sub)
+                    iter_items['ses'].append(ses)
+                    iter_items['task'].append(task)
+                    iter_items['run'].append(run)
 
 
 # Setup
@@ -66,16 +69,19 @@ mem_gb = {"filesize": 1, "resampled": 1, "largemem": 1}
 # MAIN WORKFLOW
 
 # INPUT DATA
-infosource = Node(IdentityInterface(fields=['subject_id', 'session', 'task_name']),
+infosource = Node(IdentityInterface(fields=['subject_id', 'session', 'task_name', 'run']),
                   name="infosource")
 infosource.iterables = [('subject_id', iter_items['sub']),
                         ('session', iter_items['ses']),
-                        ('task_name', iter_items['task'])]
+                        ('task_name', iter_items['task']),
+                        ('run', iter_items['run']),
+                        ]
+
 infosource.synchronize = True # synchronised stepping through each of the iterable lists
 
 # SelectFiles - to grab the data (alternativ to DataGrabber)
 
-templates = {'func': func_file_allruns}
+templates = {'func': func_file}
 selectfiles = Node(SelectFiles(templates,
                                base_directory=experiment_dir),
                    name="selectfiles")
@@ -104,26 +110,26 @@ plot_motion = MapNode(
 plot_motion.iterables = ('plot_type', ['rotations', 'translations'])
 
 # # Summaries
-# calc_fwd = Node(
-#     interface=ni_confounds.FramewiseDisplacement(parameter_source='FSL'),
-#     name='calc_fwd'
-# )
-# calc_dvars = Node(
-#     interface=ni_confounds.ComputeDVARS(save_all=True, remove_zerovariance=True),
-#     name='calc_dvars'
-# )
+calc_fwd = Node(
+    interface=ni_confounds.FramewiseDisplacement(parameter_source='FSL'),
+    name='calc_fwd'
+)
+calc_dvars = Node(
+    interface=ni_confounds.ComputeDVARS(save_all=True, remove_zerovariance=True),
+    name='calc_dvars'
+)
 
 # Normalize motion to SPM format
 normalize_motion = Node(NormalizeMotionParams(format='FSL'),
                                name="normalize_motion")
 
-# 
-bold_confounds_wf = init_bold_confs_wf(mem_gb=mem_gb['largemem'],
-                                        metadata={},
-                                        regressors_all_comps=False,
-                                        regressors_dvars_th=1.5,
-                                        regressors_fd_th=0.5
-                                        )
+# # 
+# bold_confounds_wf = init_bold_confs_wf(mem_gb=mem_gb['largemem'],
+#                                         metadata={},
+#                                         regressors_all_comps=False,
+#                                         regressors_dvars_th=1.5,
+#                                         regressors_fd_th=0.5
+#                                         )
 
 # Datasink - creates output folder for important outputs
 datasink = Node(DataSink(base_directory=experiment_dir,
@@ -149,7 +155,8 @@ preproc.base_dir = path.join(experiment_dir, working_dir)
 
 preproc.connect([(infosource, selectfiles, [('subject_id', 'subject_id'),
                                    ('session', 'session'),
-                                   ('task_name', 'task_name')])
+                                   ('task_name', 'task_name'),
+                                   ('run', 'run')])
                                    ])
 preproc.connect(selectfiles, 'func', motion_correct,  'in_file')
 preproc.connect(selectfiles, 'func', extract_ref, 'in_file')
@@ -157,17 +164,17 @@ preproc.connect(selectfiles, ('func', getmiddlevolume), extract_ref, 't_min')
 preproc.connect(extract_ref, 'roi_file', motion_correct, 'ref_file')
 preproc.connect([(motion_correct, normalize_motion, [('par_file', 'in_file')])])
 preproc.connect(motion_correct, 'par_file', plot_motion, 'in_file')
-# preproc.connect(motion_correct, 'par_file', calc_fwd, 'in_file')
-# preproc.connect(motion_correct, 'par_file', calc_dvars, 'in_file')
+preproc.connect(motion_correct, 'par_file', calc_fwd, 'in_file')
+# preproc.connect(motion_correct, 'out_file', calc_dvars, 'in_file')
 preproc.connect([(plot_motion,  datasink, [('out_file', 'motion_plots')])])
 preproc.connect([(motion_correct,  datasink, [('out_file', 'timeseries')])])
 preproc.connect([(motion_correct,  datasink, [('par_file', 'motion_parameters')])])
-preproc.connect([(motion_correct,  bold_confounds_wf, [('par_file','inputnode.movpar_file')])])
-preproc.connect([(motion_correct,  bold_confounds_wf, [('out_file', 'inputnode.bold')])])
-# preproc.connect([(calc_fwd, datasink, [('out_file', 'motion_statistics')] )])
-# preproc.connect([(calc_dvars, datasink, [('out_file', 'motion_statistics')] )])
-preproc.connect([(bold_confounds_wf, datasink, [('outputnode.confounds_file', 'confounds_file'),
-                                                ('outputnode.confounds_metadata','confounds_metadata')])])
+# preproc.connect([(motion_correct,  bold_confounds_wf, [('par_file','inputnode.movpar_file')])])
+# preproc.connect([(motion_correct,  bold_confounds_wf, [('out_file', 'inputnode.bold')])])
+preproc.connect([(calc_fwd, datasink, [('out_file', 'motion_fwd')] )])
+# preproc.connect([(calc_dvars, datasink, [('out_std', 'motion_dvars_std')] )])
+# preproc.connect([(bold_confounds_wf, datasink, [('outputnode.confounds_file', 'confounds_file'),
+#                                                 ('outputnode.confounds_metadata','confounds_metadata')])])
 
 # Create preproc output graph
 preproc.write_graph(graph2use='colored', format='png', simple_form=True)
