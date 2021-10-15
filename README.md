@@ -1,5 +1,12 @@
 # Processing pipeline for FOUNDCOG data
-By the FOUNDCOG team, Cusack lab, Trinity College Dublin
+By the FOUNDCOG team, Cusack lab, Trinity College Dublin 
+    
+ www.foundcog.org  foundcog@tcd.ie  www.cusacklab.org 
+ 
+## Main files
+* run_heudiconv.py        converts all founcog data in /mnt/siemens-dicom/anon to BIDS format using heuristic.py 
+* foundcog_preproc.py     runs nipype pipeline to do preprocessing
+* create_qa_report.py     creates reports (e.g., motion HTML and figure)
 
 
 ## General 
@@ -77,6 +84,8 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
 * If we keep getting T2 structural, we could run surface-based analysis
 
 ## Log of development
+### 2021-10-1 [RC]
+
 ### 2021-10-10 [RC]
 * Set up initial pipeline, using MCFLIRT
 * Need metrics for QA motion
