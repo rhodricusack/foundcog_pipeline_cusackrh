@@ -80,6 +80,8 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
 * Quantify structures?
 
 ## Other Major Analysis Directions
+### Fingerprinting connectome - relate to behavioural measures and clinical fellow
+
 ### MVPA: Bayesian and Searchlight
 * Bayesian MVPA may be more sensitive
 * Searchlight MVPA to give us whole brain maps of semantic representation and so on
