@@ -38,6 +38,11 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
     - need to normalise infant template to adult template if we're to relate our results to adults
 * Region of interest definition
    - presumably through back-normalisation. What ROIs should we use? Shen like normal?
+* Need to sync with videos
+   - when are babies asleep?
+* SNR measures
+   - after motion correction
+   - Look into ghosting artifact - IRC3, LR vs AP
     
 ### Videos fMRI
 * MVPA modelling (within subject)
