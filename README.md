@@ -23,6 +23,7 @@ By the FOUNDCOG team, Cusack lab, Trinity College Dublin
 ### All fMRI 
 * Distortion correction using phase encode polarity images
     - base on sdc flow from fmriprep?
+    - "intendedfor" set 
 * Motion
     - spikes (i.e., model out frames with big shift)
     - censoring (i.e., cut out chunks of data)
