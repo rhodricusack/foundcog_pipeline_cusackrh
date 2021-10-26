@@ -21,7 +21,7 @@ for subjdicom in allsubjdicom:
     for ses, sessdicom in enumerate(allsessdicom, start = 1):
         print(f'Working on sub-{sub} ses-{ses}')
 
-        workflow(dicom_dir_template=path.join(dcmpth,'{subject}_RC_FOUNDCOG',path.basename(sessdicom),'*/*.dcm'),
+        workflow(dicom_dir_template=path.join(dcmpth,'{subject}_RC_FOUNDCOG',path.basename(sessdicom),'Series_12_cmrr_mbep2d*/*.dcm'),
             converter='dcm2niix',
             outdir='/projects/pi-cusackrh/HPC_18_01039/foundcog/bids/',
             heuristic='/projects/pi-cusackrh/HPC_18_01039/repos/heudiconv_cusacklab/heuristic.py',
