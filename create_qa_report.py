@@ -17,7 +17,7 @@ env = Environment(
 
 
 # Relative paths, for use in forked repos
-foundcog_dir = path.join('..','..','foundcog')
+foundcog_dir = path.abspath(path.join('..','..','foundcog'))
 experiment_dir = path.join(foundcog_dir,'bids')
 deriv_dir = path.join(foundcog_dir,'bids','deriv')
 reports_dir = path.join(foundcog_dir,'reports')

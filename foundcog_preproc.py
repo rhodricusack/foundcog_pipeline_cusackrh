@@ -17,8 +17,8 @@ from niworkflows.interfaces.confounds import NormalizeMotionParams
 from os import path
 from nipype.algorithms import confounds as ni_confounds
 
-# Switching to relative paths, for operation within forked repos
-experiment_dir = path.join('..','..','foundcog','bids')
+# Switching to relative definition of path, for operation within forked repos
+experiment_dir = path.abspath(path.join('..','..','foundcog','bids'))
 output_dir = 'deriv'
 working_dir = 'workingdir'
 
