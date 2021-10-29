@@ -13,7 +13,7 @@ def infotodict(seqinfo):
     seqitem: run number during scanning
     subindex: sub index within group
     """
-    anat = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:03d}_T1w')
+    anat = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:03d}_T2w')
     func_video = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_dir-AP_task-videos_run-{item:03d}_bold')
     func_pictures = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_dir-AP_task-pictures_run-{item:03d}_bold')
     func_rest5 = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_dir-AP_task-rest5_run-{item:03d}_bold')
