@@ -15,14 +15,12 @@ env = Environment(
     autoescape=select_autoescape()
 )
 
-# Absolute paths to foundcog data used for inputs
-foundcog_dir = '/projects/pi-cusackrh/HPC_18_01039/foundcog'
-experiment_dir = path.join(foundcog_dir,'bids')
 
-# Relative paths used for outputs, for testing
-relative_foundcog_dir = path.join('..','..','foundcog')
-deriv_relative = path.join(relative_foundcog_dir,'bids','deriv')
-reports_relative = path.join(relative_foundcog_dir,'reports')
+# Relative paths, for use in forked repos
+foundcog_dir = path.join('..','..','foundcog')
+experiment_dir = path.join(foundcog_dir,'bids')
+deriv_dir = path.join(foundcog_dir,'bids','deriv')
+reports_dir = path.join(foundcog_dir,'reports')
 
 if not os.path.isdir(reports_dir):
     os.mkdir(reports_dir)
@@ -46,13 +44,13 @@ for sub in subject_list:
                 comp_dir = path.join('motion_plots', run_pth)
                 comp_fn = f'sub-{sub}_ses-{ses}_dir-AP_task-{task}_run-{run:03d}_bold_mcf.nii'
                 
-                src_path = path.join(deriv_relative, comp_dir, comp_fn + '_rot.png')
+                src_path = path.join(deriv_dir, comp_dir, comp_fn + '_rot.png')
                 if path.exists(src_path):
                     # add movement parameters to HTML report
                     dest_dir = path.join(reports_dir, comp_dir)
                     os.makedirs(dest_dir, exist_ok=True)
                     for partype in ['rot','trans']:
-                        copyfile(path.join(deriv_relative, comp_dir, comp_fn + f'_{partype}.png'), path.join(dest_dir, comp_fn + f'_{partype}.png'))
+                        copyfile(path.join(deriv_dir, comp_dir, comp_fn + f'_{partype}.png'), path.join(dest_dir, comp_fn + f'_{partype}.png'))
                     if not sub in individual_runs:
                         individual_runs[sub] = {}
                     if not task in individual_runs[sub]:
@@ -64,7 +62,7 @@ for sub in subject_list:
                     # gather framewise displacements for raincloud plots later
                     fwd_comp_dir = path.join('motion_fwd', run_pth)
                     fwd_comp_fn = f'sub-{sub}_ses-{ses}_dir-AP_task-{task}_run-{run:03d}_bold_mcf.nii'
-                    fwd_pd = pd.read_csv(path.join(deriv_relative, fwd_comp_dir, 'fd_power_2012.txt'))
+                    fwd_pd = pd.read_csv(path.join(deriv_dir, fwd_comp_dir, 'fd_power_2012.txt'))
                     fwd_pd['id']=f'{sub}_{task}_ses-{ses}_run-{run:03d} [{len(fwd_pd.index)}]'
                     fwd = fwd.append(fwd_pd, ignore_index=True)
 
