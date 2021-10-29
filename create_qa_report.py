@@ -15,13 +15,15 @@ env = Environment(
     autoescape=select_autoescape()
 )
 
+# Absolute paths to foundcog data used for inputs
 foundcog_dir = '/projects/pi-cusackrh/HPC_18_01039/foundcog'
 experiment_dir = path.join(foundcog_dir,'bids')
-derivpth=path.join(experiment_dir, 'deriv')
-deriv_relative = path.join('..','..','foundcog','bids','deriv')
 
-# For HTML reports
-reports_dir = path.join(foundcog_dir,'reports')
+# Relative paths used for outputs, for testing
+relative_foundcog_dir = path.join('..','..','foundcog')
+deriv_relative = path.join(relative_foundcog_dir,'bids','deriv')
+reports_relative = path.join(relative_foundcog_dir,'reports')
+
 if not os.path.isdir(reports_dir):
     os.mkdir(reports_dir)
 
@@ -47,7 +49,7 @@ for sub in subject_list:
                 src_path = path.join(deriv_relative, comp_dir, comp_fn + '_rot.png')
                 if path.exists(src_path):
                     # add movement parameters to HTML report
-                    dest_dir = path.join('reports', comp_dir)
+                    dest_dir = path.join(reports_dir, comp_dir)
                     os.makedirs(dest_dir, exist_ok=True)
                     for partype in ['rot','trans']:
                         copyfile(path.join(deriv_relative, comp_dir, comp_fn + f'_{partype}.png'), path.join(dest_dir, comp_fn + f'_{partype}.png'))
@@ -85,10 +87,10 @@ ax=sns.boxplot(data=fwd, color="black",orient=ort,width=.15,x=dx,y=dy,zorder=10,
 #ax.set(ylim=(3.5, -.7))
 sns.despine(left=True)
 plt.tight_layout()
-plt.savefig('reports/fwd_raincloud.png')
+plt.savefig(path.join(reports_dir,'fwd_raincloud.png'))
 
 template = env.get_template("motion.html")
-with open('reports/motion.html','w') as f:
+with open(path.join(reports_dir, 'motion.html'),'w') as f:
     f.write(template.render(individual_runs=individual_runs))
 
 

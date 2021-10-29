@@ -110,8 +110,12 @@ plot_motion = MapNode(
 plot_motion.iterables = ('plot_type', ['rotations', 'translations'])
 
 # # Summaries
+# Normalize motion to SPM format
+normalize_motion = Node(NormalizeMotionParams(format='FSL'),
+                               name="normalize_motion")
+
 calc_fwd = Node(
-    interface=ni_confounds.FramewiseDisplacement(parameter_source='FSL'),
+    interface=ni_confounds.FramewiseDisplacement(parameter_source='SPM'),   # use parameter source as SPM because these have been processed with NormalizeMotionParams, for compatability with fmriprep
     name='calc_fwd'
 )
 calc_dvars = Node(
@@ -119,9 +123,6 @@ calc_dvars = Node(
     name='calc_dvars'
 )
 
-# Normalize motion to SPM format
-normalize_motion = Node(NormalizeMotionParams(format='FSL'),
-                               name="normalize_motion")
 
 # # 
 # bold_confounds_wf = init_bold_confs_wf(mem_gb=mem_gb['largemem'],
