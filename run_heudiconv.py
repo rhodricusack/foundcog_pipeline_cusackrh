@@ -6,6 +6,8 @@ import glob
 
 # Path to scan
 dcmpth='/mnt/siemens-dicom/anon'
+heuristic = path.abspath('heuristic.py')
+print(f'Using heuristic {heuristic}')
 
 # Each subject
 allsubjdicom = glob.glob(path.join(dcmpth,'*_RC_FOUNDCOG'))
@@ -24,7 +26,7 @@ for subjdicom in allsubjdicom:
         workflow(dicom_dir_template=path.join(dcmpth,'{subject}_RC_FOUNDCOG',path.basename(sessdicom),'Series_*/*.dcm'),
             converter='dcm2niix',
             outdir='/projects/pi-cusackrh/HPC_18_01039/foundcog/bids/',
-            heuristic='/projects/pi-cusackrh/HPC_18_01039/repos/heudiconv_cusacklab/heuristic.py',
+            heuristic=heuristic,
             overwrite=True, 
             bids_options=[],
             subjs=[sub],
