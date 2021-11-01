@@ -37,6 +37,7 @@ individual_runs={}
 fwd = pd.DataFrame()
 
 for sub in subject_list:
+    nrun=0
     for task in task_list:
         for ses in session_list:
             for run in run_list:
@@ -65,6 +66,10 @@ for sub in subject_list:
                     fwd_pd = pd.read_csv(path.join(deriv_dir, fwd_comp_dir, 'fd_power_2012.txt'))
                     fwd_pd['id']=f'{sub}_{task}_ses-{ses}_run-{run:03d} [{len(fwd_pd.index)}]'
                     fwd = fwd.append(fwd_pd, ignore_index=True)
+
+                    nrun+=1
+    print(f'Subject {sub} total runs {nrun}')
+
 
 # Raincloud summary of FWD for each session of each subject
 f, ax = plt.subplots(figsize=(12, 8))
