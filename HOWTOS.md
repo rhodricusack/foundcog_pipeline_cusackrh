@@ -20,9 +20,9 @@
 
 * For the foundcog analysis we will use the following shared environment:
     `/projects/pi-cusackrh/HPC_18_01039/foundcog/pyenv`
-* To activate this environment type:
+  To activate this environment type:
     `$ source /projects/pi-cusackrh/HPC_18_01039/foundcog/pyenv/bin/activate`
-* Test that this is working with:
+  Test that this is working with:
     `$which python`
-* Which should return:
+  Which should return:
     `/projects/pi-cusackrh/HPC_18_01039/foundcog/pyenv/bin/python`
