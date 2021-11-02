@@ -3,6 +3,11 @@
 * Create your own fork of https://github.com/rhodricusack/foundcog_pipeline 
 * Create your personal foundcog directory (e.g., for me, /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog)
 * Clone this repo into your personal foundcog directory (e.g., /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/foundcog_pipeline)
+* Add the main repo as an upstream branch 
+    git remote add upstream https://github.com/rhodricusack/foundcog_pipeline.git
+    *to pull from this main repo*
+    git fetch upstream
+    git merge upstream/master master
 * Create a bids directory in you personal foundcog directory
 * Change into this directory 
     cd /projects/pi-cusackrh/HPC_18_01039/*username*/foundcog/bids
