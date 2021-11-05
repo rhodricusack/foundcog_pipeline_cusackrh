@@ -103,6 +103,9 @@ def getmiddlevolume(func):
 #  MCFLIRT
 motion_correct = Node(fsl.MCFLIRT(mean_vol=True, save_plots=True,output_type='NIFTI'), name="mcflirt")
 
+# Smoothing
+smooth = Node(fsl.Smooth(fwhm=8.0), name="smoothing")
+
 #  Plot output
 plot_motion = MapNode(
     interface=fsl.PlotMotionParams(in_source='fsl'),
@@ -151,11 +154,12 @@ preproc.connect(selectfiles, 'func', motion_correct,  'in_file')
 preproc.connect(selectfiles, 'func', extract_ref, 'in_file')
 preproc.connect(selectfiles, ('func', getmiddlevolume), extract_ref, 't_min')
 preproc.connect(extract_ref, 'roi_file', motion_correct, 'ref_file')
+preproc.connect(motion_correct, 'out_file', smooth, 'in_file')
 preproc.connect([(motion_correct, normalize_motion, [('par_file', 'in_file')])])
 preproc.connect(motion_correct, 'par_file', plot_motion, 'in_file')
 preproc.connect(normalize_motion, 'out_file', calc_fwd, 'in_file')
 preproc.connect([(plot_motion,  datasink, [('out_file', 'motion_plots')])])
-preproc.connect([(motion_correct,  datasink, [('out_file', 'timeseries')])])
+preproc.connect([(smooth,  datasink, [('smoothed_file', 'smoothed_files')])])
 preproc.connect([(motion_correct,  datasink, [('par_file', 'motion_parameters')])])
 preproc.connect([(calc_fwd, datasink, [('out_file', 'motion_fwd')] )])
 
