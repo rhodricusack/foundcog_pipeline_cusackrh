@@ -1,0 +1,34 @@
+{
+    "groups": [
+        {
+            "name": "Group_00001",
+            "procs": [
+                0,
+                1
+            ],
+            "total": 2
+        }
+    ],
+    "links": [
+        {
+            "source": 0,
+            "target": 1,
+            "value": 1
+        }
+    ],
+    "maxN": 2,
+    "nodes": [
+        {
+            "group": 1,
+            "name": "0_bids-grabber",
+            "report": "/tmp/tmptreuy7qy/bids_demo/_subject_IRC9/bids-grabber/_report/report.rst",
+            "result": "/tmp/tmptreuy7qy/bids_demo/_subject_IRC9/bids-grabber/result_bids-grabber.pklz"
+        },
+        {
+            "group": 1,
+            "name": "1_analyzeBOLD",
+            "report": "/tmp/tmp8a1azq65/bids_demo/_subject_IRC9/analyzeBOLD/_report/report.rst",
+            "result": "/tmp/tmp8a1azq65/bids_demo/_subject_IRC9/analyzeBOLD/result_analyzeBOLD.pklz"
+        }
+    ]
+}

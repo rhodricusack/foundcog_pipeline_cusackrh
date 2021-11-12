@@ -1,0 +1,742 @@
+{
+    "groups": [
+        {
+            "name": "Group_00001",
+            "procs": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45
+            ],
+            "total": 46
+        }
+    ],
+    "links": [
+        {
+            "source": 41,
+            "target": 42,
+            "value": 1
+        },
+        {
+            "source": 30,
+            "target": 42,
+            "value": 1
+        },
+        {
+            "source": 19,
+            "target": 42,
+            "value": 1
+        },
+        {
+            "source": 8,
+            "target": 42,
+            "value": 1
+        },
+        {
+            "source": 42,
+            "target": 43,
+            "value": 1
+        },
+        {
+            "source": 33,
+            "target": 35,
+            "value": 1
+        },
+        {
+            "source": 34,
+            "target": 35,
+            "value": 1
+        },
+        {
+            "source": 33,
+            "target": 34,
+            "value": 1
+        },
+        {
+            "source": 35,
+            "target": 41,
+            "value": 1
+        },
+        {
+            "source": 35,
+            "target": 40,
+            "value": 1
+        },
+        {
+            "source": 35,
+            "target": 38,
+            "value": 1
+        },
+        {
+            "source": 38,
+            "target": 39,
+            "value": 1
+        },
+        {
+            "source": 35,
+            "target": 37,
+            "value": 1
+        },
+        {
+            "source": 35,
+            "target": 45,
+            "value": 1
+        },
+        {
+            "source": 41,
+            "target": 45,
+            "value": 1
+        },
+        {
+            "source": 40,
+            "target": 45,
+            "value": 1
+        },
+        {
+            "source": 39,
+            "target": 45,
+            "value": 1
+        },
+        {
+            "source": 37,
+            "target": 45,
+            "value": 1
+        },
+        {
+            "source": 35,
+            "target": 36,
+            "value": 1
+        },
+        {
+            "source": 35,
+            "target": 44,
+            "value": 1
+        },
+        {
+            "source": 41,
+            "target": 44,
+            "value": 1
+        },
+        {
+            "source": 40,
+            "target": 44,
+            "value": 1
+        },
+        {
+            "source": 39,
+            "target": 44,
+            "value": 1
+        },
+        {
+            "source": 36,
+            "target": 44,
+            "value": 1
+        },
+        {
+            "source": 22,
+            "target": 24,
+            "value": 1
+        },
+        {
+            "source": 23,
+            "target": 24,
+            "value": 1
+        },
+        {
+            "source": 22,
+            "target": 23,
+            "value": 1
+        },
+        {
+            "source": 24,
+            "target": 30,
+            "value": 1
+        },
+        {
+            "source": 24,
+            "target": 29,
+            "value": 1
+        },
+        {
+            "source": 24,
+            "target": 27,
+            "value": 1
+        },
+        {
+            "source": 27,
+            "target": 28,
+            "value": 1
+        },
+        {
+            "source": 24,
+            "target": 26,
+            "value": 1
+        },
+        {
+            "source": 24,
+            "target": 32,
+            "value": 1
+        },
+        {
+            "source": 30,
+            "target": 32,
+            "value": 1
+        },
+        {
+            "source": 29,
+            "target": 32,
+            "value": 1
+        },
+        {
+            "source": 28,
+            "target": 32,
+            "value": 1
+        },
+        {
+            "source": 26,
+            "target": 32,
+            "value": 1
+        },
+        {
+            "source": 24,
+            "target": 25,
+            "value": 1
+        },
+        {
+            "source": 24,
+            "target": 31,
+            "value": 1
+        },
+        {
+            "source": 30,
+            "target": 31,
+            "value": 1
+        },
+        {
+            "source": 29,
+            "target": 31,
+            "value": 1
+        },
+        {
+            "source": 28,
+            "target": 31,
+            "value": 1
+        },
+        {
+            "source": 25,
+            "target": 31,
+            "value": 1
+        },
+        {
+            "source": 11,
+            "target": 13,
+            "value": 1
+        },
+        {
+            "source": 12,
+            "target": 13,
+            "value": 1
+        },
+        {
+            "source": 11,
+            "target": 12,
+            "value": 1
+        },
+        {
+            "source": 13,
+            "target": 19,
+            "value": 1
+        },
+        {
+            "source": 13,
+            "target": 18,
+            "value": 1
+        },
+        {
+            "source": 13,
+            "target": 16,
+            "value": 1
+        },
+        {
+            "source": 16,
+            "target": 17,
+            "value": 1
+        },
+        {
+            "source": 13,
+            "target": 15,
+            "value": 1
+        },
+        {
+            "source": 13,
+            "target": 21,
+            "value": 1
+        },
+        {
+            "source": 19,
+            "target": 21,
+            "value": 1
+        },
+        {
+            "source": 18,
+            "target": 21,
+            "value": 1
+        },
+        {
+            "source": 17,
+            "target": 21,
+            "value": 1
+        },
+        {
+            "source": 15,
+            "target": 21,
+            "value": 1
+        },
+        {
+            "source": 13,
+            "target": 14,
+            "value": 1
+        },
+        {
+            "source": 13,
+            "target": 20,
+            "value": 1
+        },
+        {
+            "source": 19,
+            "target": 20,
+            "value": 1
+        },
+        {
+            "source": 18,
+            "target": 20,
+            "value": 1
+        },
+        {
+            "source": 17,
+            "target": 20,
+            "value": 1
+        },
+        {
+            "source": 14,
+            "target": 20,
+            "value": 1
+        },
+        {
+            "source": 0,
+            "target": 2,
+            "value": 1
+        },
+        {
+            "source": 1,
+            "target": 2,
+            "value": 1
+        },
+        {
+            "source": 0,
+            "target": 1,
+            "value": 1
+        },
+        {
+            "source": 2,
+            "target": 8,
+            "value": 1
+        },
+        {
+            "source": 2,
+            "target": 7,
+            "value": 1
+        },
+        {
+            "source": 2,
+            "target": 5,
+            "value": 1
+        },
+        {
+            "source": 5,
+            "target": 6,
+            "value": 1
+        },
+        {
+            "source": 2,
+            "target": 4,
+            "value": 1
+        },
+        {
+            "source": 2,
+            "target": 10,
+            "value": 1
+        },
+        {
+            "source": 8,
+            "target": 10,
+            "value": 1
+        },
+        {
+            "source": 7,
+            "target": 10,
+            "value": 1
+        },
+        {
+            "source": 6,
+            "target": 10,
+            "value": 1
+        },
+        {
+            "source": 4,
+            "target": 10,
+            "value": 1
+        },
+        {
+            "source": 2,
+            "target": 3,
+            "value": 1
+        },
+        {
+            "source": 2,
+            "target": 9,
+            "value": 1
+        },
+        {
+            "source": 8,
+            "target": 9,
+            "value": 1
+        },
+        {
+            "source": 7,
+            "target": 9,
+            "value": 1
+        },
+        {
+            "source": 6,
+            "target": 9,
+            "value": 1
+        },
+        {
+            "source": 3,
+            "target": 9,
+            "value": 1
+        }
+    ],
+    "maxN": 46,
+    "nodes": [
+        {
+            "group": 1,
+            "name": "0_bids-grabber",
+            "report": "/tmp/tmpqocpdhcr/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/bids-grabber/_report/report.rst",
+            "result": "/tmp/tmpqocpdhcr/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/bids-grabber/result_bids-grabber.pklz"
+        },
+        {
+            "group": 1,
+            "name": "1_extractref",
+            "report": "/tmp/tmpm59pvekx/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/extractref/_report/report.rst",
+            "result": "/tmp/tmpm59pvekx/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/extractref/result_extractref.pklz"
+        },
+        {
+            "group": 1,
+            "name": "2_mcflirt",
+            "report": "/tmp/tmpc41hjc_c/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/mcflirt/_report/report.rst",
+            "result": "/tmp/tmpc41hjc_c/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/mcflirt/result_mcflirt.pklz"
+        },
+        {
+            "group": 1,
+            "name": "3_plot_motion",
+            "report": "/tmp/tmpaupv9ay8/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/_plot_type_translations/plot_motion/_report/report.rst",
+            "result": "/tmp/tmpaupv9ay8/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/_plot_type_translations/plot_motion/result_plot_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "4_plot_motion",
+            "report": "/tmp/tmpv40eu6b2/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/_plot_type_rotations/plot_motion/_report/report.rst",
+            "result": "/tmp/tmpv40eu6b2/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/_plot_type_rotations/plot_motion/result_plot_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "5_normalize_motion",
+            "report": "/tmp/tmpvu0r61n9/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/normalize_motion/_report/report.rst",
+            "result": "/tmp/tmpvu0r61n9/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/normalize_motion/result_normalize_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "6_calc_fwd",
+            "report": "/tmp/tmpg0e0ywib/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/calc_fwd/_report/report.rst",
+            "result": "/tmp/tmpg0e0ywib/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/calc_fwd/result_calc_fwd.pklz"
+        },
+        {
+            "group": 1,
+            "name": "7_session_mean",
+            "report": "/tmp/tmpr_ype_ey/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/session_mean/_report/report.rst",
+            "result": "/tmp/tmpr_ype_ey/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/session_mean/result_session_mean.pklz"
+        },
+        {
+            "group": 1,
+            "name": "8_smoothing",
+            "report": "/tmp/tmpnyinflvj/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/smoothing/_report/report.rst",
+            "result": "/tmp/tmpnyinflvj/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/smoothing/result_smoothing.pklz"
+        },
+        {
+            "group": 1,
+            "name": "9_datasink",
+            "report": "/tmp/tmp2ldnjej1/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/_plot_type_translations/datasink/_report/report.rst",
+            "result": "/tmp/tmp2ldnjej1/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/_plot_type_translations/datasink/result_datasink.pklz"
+        },
+        {
+            "group": 1,
+            "name": "10_datasink",
+            "report": "/tmp/tmpj7jwq7x1/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/_plot_type_rotations/datasink/_report/report.rst",
+            "result": "/tmp/tmpj7jwq7x1/wf_base/bold_preproc/_run_2_session_1_subject_IRC9_task_videos/_plot_type_rotations/datasink/result_datasink.pklz"
+        },
+        {
+            "group": 1,
+            "name": "11_bids-grabber",
+            "report": "/tmp/tmpmwj0tfp5/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/bids-grabber/_report/report.rst",
+            "result": "/tmp/tmpmwj0tfp5/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/bids-grabber/result_bids-grabber.pklz"
+        },
+        {
+            "group": 1,
+            "name": "12_extractref",
+            "report": "/tmp/tmps02_rlbr/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/extractref/_report/report.rst",
+            "result": "/tmp/tmps02_rlbr/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/extractref/result_extractref.pklz"
+        },
+        {
+            "group": 1,
+            "name": "13_mcflirt",
+            "report": "/tmp/tmpblnkg6oi/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/mcflirt/_report/report.rst",
+            "result": "/tmp/tmpblnkg6oi/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/mcflirt/result_mcflirt.pklz"
+        },
+        {
+            "group": 1,
+            "name": "14_plot_motion",
+            "report": "/tmp/tmpjy7syxru/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/_plot_type_translations/plot_motion/_report/report.rst",
+            "result": "/tmp/tmpjy7syxru/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/_plot_type_translations/plot_motion/result_plot_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "15_plot_motion",
+            "report": "/tmp/tmpxu4ci5xv/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/_plot_type_rotations/plot_motion/_report/report.rst",
+            "result": "/tmp/tmpxu4ci5xv/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/_plot_type_rotations/plot_motion/result_plot_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "16_normalize_motion",
+            "report": "/tmp/tmpcrz3e84i/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/normalize_motion/_report/report.rst",
+            "result": "/tmp/tmpcrz3e84i/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/normalize_motion/result_normalize_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "17_calc_fwd",
+            "report": "/tmp/tmpk7e5jdl6/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/calc_fwd/_report/report.rst",
+            "result": "/tmp/tmpk7e5jdl6/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/calc_fwd/result_calc_fwd.pklz"
+        },
+        {
+            "group": 1,
+            "name": "18_session_mean",
+            "report": "/tmp/tmplw2qj198/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/session_mean/_report/report.rst",
+            "result": "/tmp/tmplw2qj198/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/session_mean/result_session_mean.pklz"
+        },
+        {
+            "group": 1,
+            "name": "19_smoothing",
+            "report": "/tmp/tmp9ssvvqjw/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/smoothing/_report/report.rst",
+            "result": "/tmp/tmp9ssvvqjw/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/smoothing/result_smoothing.pklz"
+        },
+        {
+            "group": 1,
+            "name": "20_datasink",
+            "report": "/tmp/tmpbv0f4vod/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/_plot_type_translations/datasink/_report/report.rst",
+            "result": "/tmp/tmpbv0f4vod/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/_plot_type_translations/datasink/result_datasink.pklz"
+        },
+        {
+            "group": 1,
+            "name": "21_datasink",
+            "report": "/tmp/tmpye734lc7/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/_plot_type_rotations/datasink/_report/report.rst",
+            "result": "/tmp/tmpye734lc7/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_videos/_plot_type_rotations/datasink/result_datasink.pklz"
+        },
+        {
+            "group": 1,
+            "name": "22_bids-grabber",
+            "report": "/tmp/tmph1dbz8o3/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/bids-grabber/_report/report.rst",
+            "result": "/tmp/tmph1dbz8o3/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/bids-grabber/result_bids-grabber.pklz"
+        },
+        {
+            "group": 1,
+            "name": "23_extractref",
+            "report": "/tmp/tmpslz3l55a/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/extractref/_report/report.rst",
+            "result": "/tmp/tmpslz3l55a/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/extractref/result_extractref.pklz"
+        },
+        {
+            "group": 1,
+            "name": "24_mcflirt",
+            "report": "/tmp/tmp55sl_vws/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/mcflirt/_report/report.rst",
+            "result": "/tmp/tmp55sl_vws/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/mcflirt/result_mcflirt.pklz"
+        },
+        {
+            "group": 1,
+            "name": "25_plot_motion",
+            "report": "/tmp/tmp6lqa3f7o/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/_plot_type_translations/plot_motion/_report/report.rst",
+            "result": "/tmp/tmp6lqa3f7o/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/_plot_type_translations/plot_motion/result_plot_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "26_plot_motion",
+            "report": "/tmp/tmpdjeqw1vl/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/_plot_type_rotations/plot_motion/_report/report.rst",
+            "result": "/tmp/tmpdjeqw1vl/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/_plot_type_rotations/plot_motion/result_plot_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "27_normalize_motion",
+            "report": "/tmp/tmplodou7ly/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/normalize_motion/_report/report.rst",
+            "result": "/tmp/tmplodou7ly/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/normalize_motion/result_normalize_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "28_calc_fwd",
+            "report": "/tmp/tmp88yxl81k/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/calc_fwd/_report/report.rst",
+            "result": "/tmp/tmp88yxl81k/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/calc_fwd/result_calc_fwd.pklz"
+        },
+        {
+            "group": 1,
+            "name": "29_session_mean",
+            "report": "/tmp/tmpr3twdmds/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/session_mean/_report/report.rst",
+            "result": "/tmp/tmpr3twdmds/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/session_mean/result_session_mean.pklz"
+        },
+        {
+            "group": 1,
+            "name": "30_smoothing",
+            "report": "/tmp/tmpww24nnnc/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/smoothing/_report/report.rst",
+            "result": "/tmp/tmpww24nnnc/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/smoothing/result_smoothing.pklz"
+        },
+        {
+            "group": 1,
+            "name": "31_datasink",
+            "report": "/tmp/tmppk7r8_qu/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/_plot_type_translations/datasink/_report/report.rst",
+            "result": "/tmp/tmppk7r8_qu/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/_plot_type_translations/datasink/result_datasink.pklz"
+        },
+        {
+            "group": 1,
+            "name": "32_datasink",
+            "report": "/tmp/tmpv49z051z/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/_plot_type_rotations/datasink/_report/report.rst",
+            "result": "/tmp/tmpv49z051z/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_rest5/_plot_type_rotations/datasink/result_datasink.pklz"
+        },
+        {
+            "group": 1,
+            "name": "33_bids-grabber",
+            "report": "/tmp/tmprmh96cg6/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/bids-grabber/_report/report.rst",
+            "result": "/tmp/tmprmh96cg6/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/bids-grabber/result_bids-grabber.pklz"
+        },
+        {
+            "group": 1,
+            "name": "34_extractref",
+            "report": "/tmp/tmpi92nrky4/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/extractref/_report/report.rst",
+            "result": "/tmp/tmpi92nrky4/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/extractref/result_extractref.pklz"
+        },
+        {
+            "group": 1,
+            "name": "35_mcflirt",
+            "report": "/tmp/tmpkpc9nqy7/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/mcflirt/_report/report.rst",
+            "result": "/tmp/tmpkpc9nqy7/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/mcflirt/result_mcflirt.pklz"
+        },
+        {
+            "group": 1,
+            "name": "36_plot_motion",
+            "report": "/tmp/tmpcdehs0lw/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/_plot_type_translations/plot_motion/_report/report.rst",
+            "result": "/tmp/tmpcdehs0lw/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/_plot_type_translations/plot_motion/result_plot_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "37_plot_motion",
+            "report": "/tmp/tmpp13l1fia/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/_plot_type_rotations/plot_motion/_report/report.rst",
+            "result": "/tmp/tmpp13l1fia/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/_plot_type_rotations/plot_motion/result_plot_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "38_normalize_motion",
+            "report": "/tmp/tmph8xhbfx2/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/normalize_motion/_report/report.rst",
+            "result": "/tmp/tmph8xhbfx2/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/normalize_motion/result_normalize_motion.pklz"
+        },
+        {
+            "group": 1,
+            "name": "39_calc_fwd",
+            "report": "/tmp/tmpcb4lycns/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/calc_fwd/_report/report.rst",
+            "result": "/tmp/tmpcb4lycns/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/calc_fwd/result_calc_fwd.pklz"
+        },
+        {
+            "group": 1,
+            "name": "40_session_mean",
+            "report": "/tmp/tmpdqui65mo/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/session_mean/_report/report.rst",
+            "result": "/tmp/tmpdqui65mo/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/session_mean/result_session_mean.pklz"
+        },
+        {
+            "group": 1,
+            "name": "41_smoothing",
+            "report": "/tmp/tmpozej7q64/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/smoothing/_report/report.rst",
+            "result": "/tmp/tmpozej7q64/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/smoothing/result_smoothing.pklz"
+        },
+        {
+            "group": 1,
+            "name": "42_joinnode",
+            "report": "/tmp/tmpg1pd5vwc/wf_base/joinnode/_report/report.rst",
+            "result": "/tmp/tmpg1pd5vwc/wf_base/joinnode/result_joinnode.pklz"
+        },
+        {
+            "group": 1,
+            "name": "43_postjoinfunctionnode",
+            "report": "/tmp/tmpshk8l4do/wf_base/postjoinfunctionnode/_report/report.rst",
+            "result": "/tmp/tmpshk8l4do/wf_base/postjoinfunctionnode/result_postjoinfunctionnode.pklz"
+        },
+        {
+            "group": 1,
+            "name": "44_datasink",
+            "report": "/tmp/tmpq94d4ble/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/_plot_type_translations/datasink/_report/report.rst",
+            "result": "/tmp/tmpq94d4ble/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/_plot_type_translations/datasink/result_datasink.pklz"
+        },
+        {
+            "group": 1,
+            "name": "45_datasink",
+            "report": "/tmp/tmpltwcnmu0/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/_plot_type_rotations/datasink/_report/report.rst",
+            "result": "/tmp/tmpltwcnmu0/wf_base/bold_preproc/_run_1_session_1_subject_IRC9_task_pictures/_plot_type_rotations/datasink/result_datasink.pklz"
+        }
+    ]
+}

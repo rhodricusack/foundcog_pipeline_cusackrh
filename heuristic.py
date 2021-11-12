@@ -14,12 +14,12 @@ def infotodict(seqinfo):
     subindex: sub index within group
     """
     anat = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:03d}_T2w')
-    func_video = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_dir-AP_task-videos_run-{item:03d}_bold')
-    func_pictures = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_dir-AP_task-pictures_run-{item:03d}_bold')
-    func_rest5 = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_dir-AP_task-rest5_run-{item:03d}_bold')
-    func_rest10 = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_dir-AP_task-rest10_run-{item:03d}_bold')
-    dwi = create_key('sub-{subject}/{session}/dwi/sub-{subject}_{session}_dir-{dir}_run-{item}_dwi')
-    fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_dir-{dir}_run-{item}_epi')
+    func_video = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-videos_dir-AP_run-{item:03d}_bold')
+    func_pictures = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-pictures_dir-AP_run-{item:03d}_bold')
+    func_rest5 = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest5_dir-AP_run-{item:03d}_bold')
+    func_rest10 = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest10_dir-AP_run-{item:03d}_bold')
+    dwi = create_key('sub-{subject}/{session}/dwi/sub-{subject}_{session}_dir-{dir}_run-{item:03d}_dwi')
+    fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_dir-{dir}_run-{item:03d}_epi')
     info = {anat: [], func_video: [], func_pictures: [], func_rest5: [], func_rest10: [], dwi: [], fmap:[] }
     
     for idx, s in enumerate(seqinfo):

@@ -6,6 +6,9 @@ import glob
 
 # Path to scan
 dcmpth='/mnt/siemens-dicom/anon'
+bidsoutdir = path.abspath(path.join('..','bids'))
+print(f'BIDS output dir {bidsoutdir}')
+
 heuristic = path.abspath('heuristic.py')
 print(f'Using heuristic {heuristic}')
 
@@ -20,7 +23,7 @@ for subjdicom in allsubjdicom:
     sub = '_'.join(flds[:2]) # removed _ (e.g., ICN_2 -> ICN2) as underscore typically splits fields in bids
 
     # Each session for this subject
-    allsessdicom = glob.glob(path.join(subjdicom,'20211011T143715.153000'))
+    allsessdicom = glob.glob(path.join(subjdicom,'*'))
     allsessdicom.sort() # sessions in ascending order by time
 
     if not allsessdicom:
@@ -33,7 +36,7 @@ for subjdicom in allsubjdicom:
 
         workflow(dicom_dir_template=dcmtemplate,
             converter='dcm2niix',
-            outdir='/projects/pi-cusackrh/HPC_18_01039/foundcog/bids/',
+            outdir=bidsoutdir,
             heuristic=heuristic,
             overwrite=True, 
             bids_options=[],
