@@ -21,23 +21,25 @@ from nipype.interfaces.io import BIDSDataGrabber
 
 
 
-def get_wf_bold_preproc(bids_dir, tags):
+def get_wf_bold_preproc(bids_dir):
     # Inputs, outputs, datasink
-    inputnode = Node(interface=IdentityInterface(fields=tags), name='inputnode')
+    inputnode = Node(interface=IdentityInterface(fields=['bold']), name='inputnode')
 
     outputnode = Node(interface=IdentityInterface(
         fields=['bold','session_mean','motion_parameters','motion_fwd']), 
         name='outputnode')
     datasink = Node(interface=DataSink(), name='datasink')
 
-    bdg = Node(BIDSDataGrabber(), name='bids-grabber')
-    bdg.inputs.base_dir = bids_dir
-    bdg.inputs.output_query={'bold':{'datatype':'func', 'suffix':'bold', 'extension':'nii.gz'}}
     
     # Motion correction
     #  extract reference for motion correction
     #   TODO: extract robust reference in noisy infant data?
-    extract_ref = MapNode(interface=fsl.ExtractROI(t_size=1), iterfield='in_file', name='extractref')
+    extract_ref = Node(interface=fsl.ExtractROI(t_size=1), iterfield='in_file', name='extractref')
+
+    def dumpme(bold):
+        print(f'***Dumping type: {type(bold)} value: {bold}')
+
+        return bold
 
     def getmiddlevolume(func):
         from nibabel import load
@@ -47,6 +49,8 @@ def get_wf_bold_preproc(bids_dir, tags):
             funcfile = func[0]
         _, _, _, timepoints = load(funcfile).shape
         return int(timepoints / 2) - 1
+
+    dumpmenode = Node(Function(function=dumpme, input_names=['bold'], output_names=['bold']), name='dumpme')
 
     #  MCFLIRT
     motion_correct = Node(fsl.MCFLIRT(mean_vol=True, save_plots=True,output_type='NIFTI'), name="mcflirt", iterfield=['in_file'])
@@ -81,14 +85,16 @@ def get_wf_bold_preproc(bids_dir, tags):
 
     # Create a preprocessing workflow
     preproc = Workflow(name='bold_preproc')
-    for tag in tags:
-        preproc.connect(inputnode, tag, bdg, tag)
-    preproc.connect(bdg, 'bold', motion_correct,  'in_file')
-    preproc.connect(bdg, 'bold', extract_ref, 'in_file')
-    preproc.connect(bdg, ('bold', getmiddlevolume), extract_ref, 't_min')
+    # for tag in tags:
+    #     preproc.connect(inputnode, tag, bdg, tag)
+    preproc.connect(inputnode, 'bold', dumpmenode,  'bold')
+    preproc.connect(inputnode, 'bold', mean, 'in_file')
+    preproc.connect(dumpmenode, 'bold', motion_correct,  'in_file')
+    preproc.connect(dumpmenode, ('bold', getmiddlevolume), extract_ref, 't_min')
+    preproc.connect(dumpmenode, 'bold', extract_ref, 'in_file')
     preproc.connect(extract_ref, 'roi_file', motion_correct, 'ref_file')
     preproc.connect(motion_correct, 'out_file', smooth, 'in_file')
-    preproc.connect(motion_correct, 'out_file', mean, 'in_file')
+    #preproc.connect(motion_correct, 'out_file', mean, 'in_file')
     preproc.connect([(motion_correct, normalize_motion, [('par_file', 'in_file')])])
     preproc.connect(motion_correct, 'par_file', plot_motion, 'in_file')
     preproc.connect(normalize_motion, 'out_file', calc_fwd, 'in_file')

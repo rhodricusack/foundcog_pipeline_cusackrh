@@ -2,13 +2,13 @@
     {
         "group": 1,
         "imports": [],
-        "name": "00_bids-grabber",
+        "name": "00_dumpme",
         "size": 1
     },
     {
         "group": 1,
         "imports": [
-            "00_bids-grabber"
+            "00_dumpme"
         ],
         "name": "01_extractref",
         "size": 1
@@ -16,7 +16,7 @@
     {
         "group": 1,
         "imports": [
-            "00_bids-grabber",
+            "00_dumpme",
             "01_extractref"
         ],
         "name": "02_mcflirt",
@@ -97,13 +97,13 @@
     {
         "group": 1,
         "imports": [],
-        "name": "11_bids-grabber",
+        "name": "11_dumpme",
         "size": 1
     },
     {
         "group": 1,
         "imports": [
-            "11_bids-grabber"
+            "11_dumpme"
         ],
         "name": "12_extractref",
         "size": 1
@@ -111,7 +111,7 @@
     {
         "group": 1,
         "imports": [
-            "11_bids-grabber",
+            "11_dumpme",
             "12_extractref"
         ],
         "name": "13_mcflirt",
@@ -192,13 +192,13 @@
     {
         "group": 1,
         "imports": [],
-        "name": "22_bids-grabber",
+        "name": "22_dumpme",
         "size": 1
     },
     {
         "group": 1,
         "imports": [
-            "22_bids-grabber"
+            "22_dumpme"
         ],
         "name": "23_extractref",
         "size": 1
@@ -206,7 +206,7 @@
     {
         "group": 1,
         "imports": [
-            "22_bids-grabber",
+            "22_dumpme",
             "23_extractref"
         ],
         "name": "24_mcflirt",
@@ -287,13 +287,13 @@
     {
         "group": 1,
         "imports": [],
-        "name": "33_bids-grabber",
+        "name": "33_dumpme",
         "size": 1
     },
     {
         "group": 1,
         "imports": [
-            "33_bids-grabber"
+            "33_dumpme"
         ],
         "name": "34_extractref",
         "size": 1
@@ -301,7 +301,7 @@
     {
         "group": 1,
         "imports": [
-            "33_bids-grabber",
+            "33_dumpme",
             "34_extractref"
         ],
         "name": "35_mcflirt",

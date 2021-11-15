@@ -5,6 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "python": "/projects/pi-cusackrh/HPC_18_01039/foundcog/pyenv/bin/python",
+            "env": {
+                "PYTHONPATH": "/projects/pi-cusackrh/HPC_18_01039/repos/fmriprep:/projects/pi-cusackrh/HPC_18_01039/repos/niworkflows",
+                "NIPYPE_NO_ET": "1"
+            },
+            "justMyCode": false
+        },
+        {
             "name": "foundcog_preproc",
             "type": "python",
             "request": "launch",
