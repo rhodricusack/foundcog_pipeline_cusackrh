@@ -41,4 +41,4 @@ for subjdicom in allsubjdicom:
             overwrite=True, 
             bids_options=[],
             subjs=[sub],
-            session=ses)
+            session=ses, debug=True)
