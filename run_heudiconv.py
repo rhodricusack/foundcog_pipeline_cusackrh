@@ -1,3 +1,13 @@
+'''
+If running on TCHPC, need to add following to your .bashrc
+# User specific aliases and functions
+module load apps gcc/9.3.0
+module load apps python/3.8.6
+module load apps fsl
+export PATH=/projects/pi-cusackrh/HPC_18_01039/software/mricron:$PATH
+export PATH=/projects/pi-cusackrh/HPC_18_01039/software/dcm2niix-1.0.20211006/build/bin:$PATH
+'''
+
 from heudiconv import bids
 from heudiconv.main import workflow
 from os import path
@@ -10,7 +20,7 @@ heuristic = path.abspath('heuristic.py')
 print(f'Using heuristic {heuristic}')
 
 # Each subject
-allsubjdicom = glob.glob(path.join(dcmpth,'IRC_9_RC_FOUNDCOG'))
+allsubjdicom = glob.glob(path.join(dcmpth,'*_RC_FOUNDCOG'))
 
 print(allsubjdicom)
 
@@ -20,7 +30,7 @@ for subjdicom in allsubjdicom:
     sub = '_'.join(flds[:2]) # removed _ (e.g., ICN_2 -> ICN2) as underscore typically splits fields in bids
 
     # Each session for this subject
-    allsessdicom = glob.glob(path.join(subjdicom,'20211011T143715.153000'))
+    allsessdicom = glob.glob(path.join(subjdicom,'*'))
     allsessdicom.sort() # sessions in ascending order by time
 
     if not allsessdicom:
