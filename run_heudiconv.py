@@ -1,10 +1,5 @@
 '''
 If running on TCHPC, need to add following to your .bashrc
-# User specific aliases and functions
-module load apps gcc/9.3.0
-module load apps python/3.8.6
-module load apps fsl
-export PATH=/projects/pi-cusackrh/HPC_18_01039/software/mricron:$PATH
 export PATH=/projects/pi-cusackrh/HPC_18_01039/software/dcm2niix-1.0.20211006/build/bin:$PATH
 '''
 
