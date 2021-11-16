@@ -1,0 +1,401 @@
+[
+    {
+        "group": 1,
+        "imports": [],
+        "name": "00_dumpme",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "00_dumpme"
+        ],
+        "name": "01_extractref",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "00_dumpme",
+            "01_extractref"
+        ],
+        "name": "02_mcflirt",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "02_mcflirt"
+        ],
+        "name": "03_plot_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "02_mcflirt"
+        ],
+        "name": "04_plot_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "02_mcflirt"
+        ],
+        "name": "05_normalize_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "05_normalize_motion"
+        ],
+        "name": "06_calc_fwd",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "02_mcflirt"
+        ],
+        "name": "07_session_mean",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "02_mcflirt"
+        ],
+        "name": "08_smoothing",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "02_mcflirt",
+            "08_smoothing",
+            "07_session_mean",
+            "06_calc_fwd",
+            "03_plot_motion"
+        ],
+        "name": "09_datasink",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "02_mcflirt",
+            "08_smoothing",
+            "07_session_mean",
+            "06_calc_fwd",
+            "04_plot_motion"
+        ],
+        "name": "10_datasink",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [],
+        "name": "11_dumpme",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "11_dumpme"
+        ],
+        "name": "12_extractref",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "11_dumpme",
+            "12_extractref"
+        ],
+        "name": "13_mcflirt",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "13_mcflirt"
+        ],
+        "name": "14_plot_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "13_mcflirt"
+        ],
+        "name": "15_plot_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "13_mcflirt"
+        ],
+        "name": "16_normalize_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "16_normalize_motion"
+        ],
+        "name": "17_calc_fwd",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "13_mcflirt"
+        ],
+        "name": "18_session_mean",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "13_mcflirt"
+        ],
+        "name": "19_smoothing",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "13_mcflirt",
+            "19_smoothing",
+            "18_session_mean",
+            "17_calc_fwd",
+            "14_plot_motion"
+        ],
+        "name": "20_datasink",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "13_mcflirt",
+            "19_smoothing",
+            "18_session_mean",
+            "17_calc_fwd",
+            "15_plot_motion"
+        ],
+        "name": "21_datasink",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [],
+        "name": "22_dumpme",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "22_dumpme"
+        ],
+        "name": "23_extractref",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "22_dumpme",
+            "23_extractref"
+        ],
+        "name": "24_mcflirt",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "24_mcflirt"
+        ],
+        "name": "25_plot_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "24_mcflirt"
+        ],
+        "name": "26_plot_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "24_mcflirt"
+        ],
+        "name": "27_normalize_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "27_normalize_motion"
+        ],
+        "name": "28_calc_fwd",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "24_mcflirt"
+        ],
+        "name": "29_session_mean",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "24_mcflirt"
+        ],
+        "name": "30_smoothing",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "24_mcflirt",
+            "30_smoothing",
+            "29_session_mean",
+            "28_calc_fwd",
+            "25_plot_motion"
+        ],
+        "name": "31_datasink",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "24_mcflirt",
+            "30_smoothing",
+            "29_session_mean",
+            "28_calc_fwd",
+            "26_plot_motion"
+        ],
+        "name": "32_datasink",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [],
+        "name": "33_dumpme",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "33_dumpme"
+        ],
+        "name": "34_extractref",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "33_dumpme",
+            "34_extractref"
+        ],
+        "name": "35_mcflirt",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "35_mcflirt"
+        ],
+        "name": "36_plot_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "35_mcflirt"
+        ],
+        "name": "37_plot_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "35_mcflirt"
+        ],
+        "name": "38_normalize_motion",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "38_normalize_motion"
+        ],
+        "name": "39_calc_fwd",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "35_mcflirt"
+        ],
+        "name": "40_session_mean",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "35_mcflirt"
+        ],
+        "name": "41_smoothing",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "41_smoothing",
+            "30_smoothing",
+            "19_smoothing",
+            "08_smoothing"
+        ],
+        "name": "42_joinnode",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "42_joinnode"
+        ],
+        "name": "43_postjoinfunctionnode",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "35_mcflirt",
+            "41_smoothing",
+            "40_session_mean",
+            "39_calc_fwd",
+            "36_plot_motion"
+        ],
+        "name": "44_datasink",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "35_mcflirt",
+            "41_smoothing",
+            "40_session_mean",
+            "39_calc_fwd",
+            "37_plot_motion"
+        ],
+        "name": "45_datasink",
+        "size": 1
+    }
+]
