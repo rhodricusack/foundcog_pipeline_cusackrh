@@ -5,20 +5,22 @@ from nipype.interfaces import ants, fsl
 from nipype.interfaces.spm import Smooth
 
 from nipype.interfaces.utility import IdentityInterface
-from nipype.interfaces.io import SelectFiles, DataSink
+from nipype.interfaces.io import SelectFiles, DataSink, BIDSDataGrabber
 from nipype.algorithms.rapidart import ArtifactDetect
 import nipype.algorithms.confounds as confounds
 from nipype import Workflow, Node, MapNode, JoinNode, Function
 from bids.layout import BIDSLayout
 from niworkflows.interfaces.confounds import NormalizeMotionParams
-#from fmriprep.workflows.bold.confounds import init_bold_confs_wf
-#from fmriprep.workflows.bold import init_bold_hmc_wf
-#from fmriprep import config
+
+
+
 from os import path
 from nipype.algorithms import confounds as ni_confounds
 
 from wf_bold_preproc import get_wf_bold_preproc
 
+from nipype import config
+config.enable_debug_mode()
 
 # Switching to relative definition of path, for operation within forked repos
 experiment_dir = path.abspath(path.join('..','..','foundcog','bids'))
@@ -88,6 +90,17 @@ for sub, sub_items in iter_items.items():
     infosource.synchronize = True # synchronised stepping through each of the iterable lists
 
     # SelectFiles - to grab the data (alternativ to DataGrabber)
+    templates = {'func': func_file}
+    selectfiles = Node(SelectFiles(templates,
+                                base_directory=experiment_dir),
+                    name="selectfiles")
+
+    # Distortion correction using topup
+    bg_fmap = JoinNode(BIDSDataGrabber(infields = ['subject'], base_dir=experiment_dir), name='bg_fmap', joinsource='infosource', joinfield='subject')
+    bg_fmap.inputs.output_query= {'fmap': {'datatype':'fmap', "extension": ["nii", ".nii.gz"]}}
+    hmc_fmaps = MapNode(fsl.MCFLIRT(), iterfield='in_file', name='hmc_fmaps')
+    mean_fmaps = MapNode(fsl.maths.MeanImage(), iterfield='in_file', name='mean_fmaps')
+    merge_fmaps = Node(fsl.Merge(dimension='t'), name='merge_fmaps')
 
     templates = {'func': func_file}
     selectfiles = Node(SelectFiles(templates,
@@ -117,7 +130,55 @@ for sub, sub_items in iter_items.items():
         # If none of the above
         return in_files[0]
 
+    def select_fmaps(in_files):
+        import nibabel as nib
+        import json
+        import os
+        import numpy as np
+
+        remap={'i':'x', 'i-':'x-', 'j':'y', 'j-':'y-', 'k':'z', 'k-':'z-'}
+        # Need affines
+        ahs={}
+        encoding_direction={}
+        readout_times={}
+        for fmap in in_files:
+            affine = np.round(nib.load(fmap).affine,decimals=3)
+            print(fmap)
+            print(affine)
+            affine.flags.writeable = False
+            ah = hash(affine.data.tobytes()) # hash of affine matrix used as key
+            if not ah in ahs:
+                ahs[ah]=[]
+                readout_times[ah]=[]
+                encoding_direction[ah]=[]
+            ahs[ah].append(fmap)
+
+
+            fmap_s = os.path.splitext(fmap)
+            if fmap_s[1]=='.gz':
+                fmap_s = os.path.splitext(fmap_s[0])
+            with open( fmap_s[0] + '.json', 'r') as f:
+                fmap_json = affine = json.load(f)
+                readout_times[ah].append(fmap_json['EffectiveEchoSpacing'])
+                encoding_direction[ah].append(remap[fmap_json['PhaseEncodingDirection']])
+
+        longest_key = max(ahs, key= lambda x: len(set(ahs[x])))
+
+        if encoding_direction[longest_key][0][0]==encoding_direction[longest_key][1][0]:
+            applytopup_method='lsr'
+        else:
+            applytopup_method='jac'
+
+        print(f'Affines {ahs} longest is {longest_key} encoding directions {encoding_direction[longest_key]} readout times {readout_times[longest_key]}')
+        return ahs[longest_key], encoding_direction[longest_key], readout_times[longest_key], applytopup_method
+
     get_coreg_reference_node = Node(Function(function=get_coreg_reference, input_names=['in_files'], output_names=['reference']), name='get_coreg_reference')
+
+    select_fmaps_node = Node(Function(function=select_fmaps, input_names=['in_files'], output_names=['out_files', 'encoding_direction', 'readout_times', 'applytopup_method']), name='select_maps')
+
+    topup = Node(fsl.TOPUP(), name='topup')
+
+    applytopup = Node(fsl.ApplyTOPUP(), name='applytopup')
 
     coreg_runs = Node(fsl.FLIRT(), name='coreg_runs')
     apply_xfm = Node(fsl.preprocess.ApplyXFM(), name='apply_coreg_runs')
@@ -125,44 +186,48 @@ for sub, sub_items in iter_items.items():
 
     submean = JoinNode(ants.AverageImages(dimension=3, normalize=False),  joinsource = 'infosource', joinfield='images', name='submean')
 
+    
     # Location of template file
-    template = '/data/ds000114/derivatives/fmriprep/mni_icbm152_nlin_asym_09c/1mm_T1.nii.gz'
+    template = '/projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/templates/nihpd_asym/nihpd_asym_02-05_t2w.nii'
     # or alternatively template = Info.standard_image('MNI152_T1_1mm.nii.gz')
 
     # Registration - computes registration between subject's anatomy & the MNI template
-    # antsreg = Node(ants.Registration(args='--float',
-    #                             collapse_output_transforms=True,
-    #                             fixed_image=template,
-    #                             initial_moving_transform_com=True,
-    #                             num_threads=4,
-    #                             output_inverse_warped_image=True,
-    #                             output_warped_image=True,
-    #                             sigma_units=['vox'] * 3,
-    #                             transforms=['Rigid', 'Affine', 'SyN'],
-    #                             terminal_output='file',
-    #                             winsorize_lower_quantile=0.005,
-    #                             winsorize_upper_quantile=0.995,
-    #                             convergence_threshold=[1e-06],
-    #                             convergence_window_size=[10],
-    #                             metric=['MI', 'MI', 'CC'],
-    #                             metric_weight=[1.0] * 3,
-    #                             number_of_iterations=[[1000, 500, 250, 100],
-    #                                                 [1000, 500, 250, 100],
-    #                                                 [100, 70, 50, 20]],
-    #                             radius_or_number_of_bins=[32, 32, 4],
-    #                             sampling_percentage=[0.25, 0.25, 1],
-    #                             sampling_strategy=['Regular', 'Regular', 'None'],
-    #                             shrink_factors=[[8, 4, 2, 1]] * 3,
-    #                             smoothing_sigmas=[[3, 2, 1, 0]] * 3,
-    #                             transform_parameters=[(0.1,), (0.1,),
-    #                                                 (0.1, 3.0, 0.0)],
-    #                             use_histogram_matching=True,
-    #                             write_composite_transform=True),
-    #                 name='antsreg')
+    antsreg = Node(ants.Registration(), name='antsreg_epi_to_template')
+    antsreg.inputs.fixed_image = template
+    antsreg.inputs.output_transform_prefix = "output_"
+    antsreg.inputs.initial_moving_transform_com = True
+    antsreg.inputs.transforms = ['Affine', 'SyN']
+    antsreg.inputs.transform_parameters = [(2.0,), (0.25, 3.0, 0.0)]
+    antsreg.inputs.number_of_iterations = [[1500, 200], [100, 50, 30]]
+    antsreg.inputs.dimension = 3
+    antsreg.inputs.write_composite_transform = True
+    antsreg.inputs.collapse_output_transforms = False
+    antsreg.inputs.initialize_transforms_per_stage = False
+    antsreg.inputs.metric = ['Mattes']*2
+    antsreg.inputs.metric_weight = [1]*2 # Default (value ignored currently by ANTs)
+    antsreg.inputs.radius_or_number_of_bins = [32]*2
+    antsreg.inputs.sampling_strategy = ['Random', None]
+    antsreg.inputs.sampling_percentage = [0.05, None]
+    antsreg.inputs.convergence_threshold = [1.e-8, 1.e-9]
+    antsreg.inputs.convergence_window_size = [20]*2
+    antsreg.inputs.smoothing_sigmas = [[1,0], [2,1,0]]
+    antsreg.inputs.shrink_factors = [[2,1], [3,2,1]]
+    antsreg.inputs.use_estimate_learning_rate_once = [True, True]
+    antsreg.inputs.use_histogram_matching = [True, True] # This is the default
+    antsreg.inputs.output_warped_image = 'output_warped_image.nii.gz'
 
-
+    # Extra
+    antsreg.inputs.winsorize_lower_quantile = 0.025
+    antsreg.inputs.winsorize_upper_quantile = 0.975
+#    antsreg.inputs.save_state = 'trans.mat'
+#    antsreg.inputs.restore_state = 'trans.mat'
+#    antsreg.inputs.initialize_transforms_per_stage = True
+#    antsreg.inputs.collapse_output_transforms = True
+    antsreg.interface.num_threads = 8
+    antsreg.interface.estimated_memory_gb = 2
 
     # BOLD preprocessing workflow
+
     bold_preproc = get_wf_bold_preproc(experiment_dir, working_dir, output_dir)
 
     # Base workflow
@@ -174,10 +239,28 @@ for sub, sub_items in iter_items.items():
                                     ('task_name', 'task_name'),
                                     ('run', 'run')])
                                     ])
+    preproc.connect([(infosource, bg_fmap, [('subject_id', 'subject')])])
+
+    # Calculate PE polar distortion correction field using topup
+    preproc.connect([(bg_fmap, select_fmaps_node, [('fmap', 'in_files')])])
+    preproc.connect([(select_fmaps_node, hmc_fmaps, [('out_files', 'in_file')])])
+    preproc.connect([(hmc_fmaps, mean_fmaps, [('out_file', 'in_file')])])
+    preproc.connect([(mean_fmaps, merge_fmaps, [('out_file', 'in_files')])])
+    preproc.connect([(select_fmaps_node, topup, [('readout_times', 'readout_times')])])
+    preproc.connect([(select_fmaps_node, topup, [('encoding_direction', 'encoding_direction')])])
+    preproc.connect([(merge_fmaps, topup, [('merged_file', 'in_file')])])
+    
     preproc.connect([(selectfiles, bold_preproc, [('func','inputnode.func')])])
     
+    # Apply topup
+    preproc.connect(bold_preproc, "outputnode.func", applytopup, "in_files")
+    preproc.connect(topup, "out_fieldcoef", applytopup, "in_topup_fieldcoef")
+    preproc.connect(topup, "out_movpar", applytopup, "in_topup_movpar")
+    preproc.connect(topup, "out_enc_file", applytopup, "encoding_file")
+    preproc.connect(select_fmaps_node, "applytopup_method", applytopup, "method")
+
     # Find session means, pick best reference and coregister all means to this one    
-    preproc.connect(bold_preproc, "outputnode.func", runmean, "in_file")
+    preproc.connect(applytopup, "out_corrected", runmean, "in_file")
 
     preproc.connect(runmean, "out_file", joinbold, "in_file")
     preproc.connect(joinbold, "in_file", get_coreg_reference_node, "in_files")
@@ -187,7 +270,7 @@ for sub, sub_items in iter_items.items():
 
     # Reorient runs to space of reference run
     preproc.connect(get_coreg_reference_node, "reference", apply_xfm, "reference")
-    preproc.connect(bold_preproc, "outputnode.smoothed_func", apply_xfm, "in_file")
+    preproc.connect(applytopup, "out_corrected", apply_xfm, "in_file")
     preproc.connect(coreg_runs, "out_matrix_file",apply_xfm, "in_matrix_file")
 
     # Reorient means to space of reference run
@@ -197,6 +280,11 @@ for sub, sub_items in iter_items.items():
 
     # Mean across runs
     preproc.connect(apply_xfm_to_mean, "out_file", submean, "images")
+
+    # preproc.connect(submean, "output_average_image", antsreg, "moving_image")
+
+
+
 
     # GRAPHS
     # Create preproc output graph
@@ -213,4 +301,5 @@ for sub, sub_items in iter_items.items():
     
     #preproc.run()
 
-    preproc.run(plugin='SLURMGraph', plugin_args = {'dont_resubmit_completed_jobs': True})
+    #preproc.run(plugin='SLURMGraph', plugin_args = {'dont_resubmit_completed_jobs': True})
+    #'MultiProc', plugin_args={'n_procs': 8})
