@@ -43,7 +43,7 @@ def get_wf_bold_preproc(experiment_dir, working_dir, output_dir):
         return int(timepoints / 2) - 1
 
     #  MCFLIRT
-    motion_correct = Node(fsl.MCFLIRT(mean_vol=True, save_plots=True,output_type='NIFTI'), name="mcflirt")
+    motion_correct = Node(fsl.MCFLIRT(save_plots=True,output_type='NIFTI'), name="mcflirt")
 
     # Smoothing
     smooth = Node(fsl.Smooth(fwhm=8.0), name="smoothing")
