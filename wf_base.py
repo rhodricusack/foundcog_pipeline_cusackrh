@@ -23,7 +23,6 @@ from wf_bold_preproc import get_wf_bold_preproc
 # Switching to relative definition of path, for operation within forked repos
 experiment_dir = path.abspath(path.join('..','..','foundcog','bids'))
 output_dir = 'deriv'
-working_dir = 'workingdir'
 
 layout = BIDSLayout(experiment_dir)
 
@@ -73,6 +72,10 @@ mem_gb = {"filesize": 1, "resampled": 1, "largemem": 1}
 # MAIN WORKFLOW
 #  different sessions/runs/tasks per subject so some work needed here
 for sub, sub_items in iter_items.items():
+
+    working_dir = f'workingdir/{sub}'
+    output_dir = f'deriv'
+
     # INPUT DATA
     infosource = Node(IdentityInterface(fields=['subject_id', 'session', 'task_name', 'run']),
                     name="infosource")
@@ -104,6 +107,7 @@ for sub, sub_items in iter_items.items():
     
     
     def get_coreg_reference(in_files):
+        print(f'get_coreg_reference received {in_files}')
         # Pick reference for coreg - order by pref rest10, rest5, videos, pictures
         for pref in ['rest10', 'rest5', 'videos', 'pictures']:
             res = [out_file for out_file in in_files if pref in out_file]
@@ -206,7 +210,7 @@ for sub, sub_items in iter_items.items():
     Image(filename=path.join(preproc.base_dir, 'preproc', 'graph_detailed.png'))
 
     # RUN
-    preproc.run()
+    
+    #preproc.run()
 
-    # preproc.run(plugin='SLURMGraph', plugin_args = {'dont_resubmit_completed_jobs': True})
-    #'MultiProc', plugin_args={'n_procs': 8})
+    preproc.run(plugin='SLURMGraph', plugin_args = {'dont_resubmit_completed_jobs': True})

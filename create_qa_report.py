@@ -54,7 +54,7 @@ for sub in subject_list:
             for run in run_list:
                 run_pth=f'_run_{run}_session_{ses}_subject_id_{sub}_task_name_{task}'
                 comp_dir = path.join('motion_plots', run_pth)
-                comp_fn = f'sub-{sub}_ses-{ses}_dir-AP_task-{task}_run-{run:03d}_bold_mcf.nii'
+                comp_fn = f'sub-{sub}_ses-{ses}_task-{task}_dir-AP_run-{run:03d}_bold_mcf.nii'
                 
                 src_path = path.join(deriv_dir, comp_dir, comp_fn + '_rot.png')
                 if path.exists(src_path):
@@ -62,7 +62,10 @@ for sub in subject_list:
                     dest_dir = path.join(reports_dir, comp_dir)
                     os.makedirs(dest_dir, exist_ok=True)
                     for partype in ['rot','trans']:
-                        copyfile(path.join(deriv_dir, comp_dir, comp_fn + f'_{partype}.png'), path.join(dest_dir, comp_fn + f'_{partype}.png'))
+                        try:
+                            copyfile(path.join(deriv_dir, comp_dir, comp_fn + f'_{partype}.png'), path.join(dest_dir, comp_fn + f'_{partype}.png'))
+                        except:
+                            pass
                     if not sub in individual_runs:
                         individual_runs[sub] = {}
                     if not task in individual_runs[sub]:

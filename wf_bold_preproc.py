@@ -27,7 +27,7 @@ def get_wf_bold_preproc(experiment_dir, working_dir, output_dir):
     
 
     preproc = Workflow(name='bold_preproc')
-    preproc.base_dir = path.join(experiment_dir, working_dir)
+    preproc.base_dir = path.join(experiment_dir, working_dir, output_dir)
 
     # Motion correction
     #  extract reference for motion correction

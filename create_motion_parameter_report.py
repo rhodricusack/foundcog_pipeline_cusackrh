@@ -62,12 +62,13 @@ for sub in subject_list:
             for run in run_list:
                 run_pth=f'_run_{run}_session_{ses}_subject_id_{sub}_task_name_{task}'
                 comp_dir = path.join('motion_parameters', run_pth)
-                comp_fn = f'sub-{sub}_ses-{ses}_dir-AP_task-{task}_run-{run:03d}_bold_mcf.nii'
+                comp_fn = f'sub-{sub}_ses-{ses}_task-{task}_dir-AP_run-{run:03d}_bold_mcf.nii'
                 
                 src_path = path.join(deriv_dir, comp_dir, comp_fn + '.par')
                 if path.exists(src_path):
                     # Get movement parameters into numpy array 
                     movpar = genfromtxt(src_path)
+                    nscans = np.shape(movpar)[0]
                     movpar = movpar[:, [3,4,5,0,1,2]]  # reorder like SPM so translations first
                     movpar = np.abs(np.diff(movpar, axis=0))  # absolute frame to frame difference                    
                     movpar = np.percentile(movpar, percentile, axis=0) # extreme values
@@ -78,6 +79,7 @@ for sub in subject_list:
                         orient='index',
                         columns=['x','y','z','pitch','roll', 'yaw'])
 
+                    fwd_pd['nscans'] = nscans
                     fwd_pd['task']=task
                     fwd_pd['sub']=sub
                     fwd_pd['ses']=ses
@@ -122,6 +124,7 @@ fwd_pictures = fwd[(fwd['task']=='pictures')]
 fwd_videos = fwd[(fwd['task']=='videos') ]
 pictures_by_sub=fwd_pictures.groupby(['sub']).mean()
 videos_by_sub=fwd_videos.groupby(['sub']).mean()
+
 #  rotations
 fig, ax= plt.subplots(nrows=1, ncols=2, sharey=True)
 pictures_by_sub[['pitch','roll','yaw']].plot.bar(ax=ax[0])
@@ -130,3 +133,20 @@ ax[0].set_ylabel(f'Rotations {percentile}th percentile')
 videos_by_sub[['pitch','roll','yaw']].plot.bar(ax=ax[1])
 ax[1].title.set_text('videos')
 plt.savefig(f'rotations_videosvspictures_perc{percentile}.png')
+
+
+
+# nscans videos vs. pictures
+fwd_pictures = fwd[(fwd['task']=='pictures')]
+fwd_videos = fwd[(fwd['task']=='videos') ]
+pictures_by_sub=fwd_pictures.groupby(['sub']).sum()
+videos_by_sub=fwd_videos.groupby(['sub']).sum()
+
+#  rotations
+fig, ax= plt.subplots(nrows=1, ncols=2, sharey=True)
+pictures_by_sub[['nscans']].plot.bar(ax=ax[0])
+ax[0].title.set_text('pictures')
+ax[0].set_ylabel(f'# scans')
+videos_by_sub[['nscans']].plot.bar(ax=ax[1])
+ax[1].title.set_text('videos')
+plt.savefig(f'nscans_videosvspictures.png')
