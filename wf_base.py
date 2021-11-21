@@ -160,12 +160,17 @@ for sub, sub_items in iter_items.items():
 
         longest_key = max(ahs, key= lambda x: len(set(ahs[x])))
 
+        if encoding_direction[longest_key][0][0]==encoding_direction[longest_key][1][0]:
+            applytopup_method='lsr'
+        else:
+            applytopup_method='jac'
+
         print(f'Affines {ahs} longest is {longest_key} encoding directions {encoding_direction[longest_key]} readout times {readout_times[longest_key]}')
-        return ahs[longest_key], encoding_direction[longest_key], readout_times[longest_key]
+        return ahs[longest_key], encoding_direction[longest_key], readout_times[longest_key], applytopup_method
 
     get_coreg_reference_node = Node(Function(function=get_coreg_reference, input_names=['in_files'], output_names=['reference']), name='get_coreg_reference')
 
-    select_fmaps_node = Node(Function(function=select_fmaps, input_names=['in_files'], output_names=['out_files', 'encoding_direction', 'readout_times']), name='select_maps')
+    select_fmaps_node = Node(Function(function=select_fmaps, input_names=['in_files'], output_names=['out_files', 'encoding_direction', 'readout_times', 'applytopup_method']), name='select_maps')
 
     topup = Node(fsl.TOPUP(), name='topup')
 
@@ -248,6 +253,7 @@ for sub, sub_items in iter_items.items():
     preproc.connect(topup, "out_fieldcoef", applytopup, "in_topup_fieldcoef")
     preproc.connect(topup, "out_movpar", applytopup, "in_topup_movpar")
     preproc.connect(topup, "out_enc_file", applytopup, "encoding_file")
+    preproc.connect(select_fmaps_node, "applytopup_method", applytopup, "method")
 
     # Find session means, pick best reference and coregister all means to this one    
     preproc.connect(applytopup, "out_corrected", runmean, "in_file")
