@@ -13,18 +13,21 @@ def infotodict(seqinfo):
     seqitem: run number during scanning
     subindex: sub index within group
     """
-    anat = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:03d}_T2w')
+    anat_t2 = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:03d}_t2w')
+    anat_t1 = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:03d}_t1w')
     func_video = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-videos_dir-AP_run-{item:03d}_bold')
     func_pictures = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-pictures_dir-AP_run-{item:03d}_bold')
     func_rest5 = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest5_dir-AP_run-{item:03d}_bold')
     func_rest10 = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest10_dir-AP_run-{item:03d}_bold')
     dwi = create_key('sub-{subject}/{session}/dwi/sub-{subject}_{session}_dir-{dir}_run-{item:03d}_dwi')
     fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_dir-{dir}_run-{item:03d}_epi')
-    info = {anat: [], func_video: [], func_pictures: [], func_rest5: [], func_rest10: [], dwi: [], fmap:[] }
+    info = {anat_t2: [], func_video: [], func_pictures: [], func_rest5: [], func_rest10: [], dwi: [], fmap:[] }
     
     for idx, s in enumerate(seqinfo):
         if 't2_tse_tra_p3_noisereduction' in s.protocol_name:
-            info[anat].append(s.series_id)
+            info[anat_t2].append(s.series_id)
+        if 't1_petra' in s.protocol_name:
+            info[anat_t1].append(s.series_id)
         if (s.dim1 == 64) and (s.dim2 == 64) and ('cmrr_mbep2d_bold_videos_AP' in s.protocol_name):
             info[func_video].append(s.series_id)
         if (s.dim1 == 64) and (s.dim2 == 64) and ('cmrr_mbep2d_bold_Pictures_AP' in s.protocol_name):
