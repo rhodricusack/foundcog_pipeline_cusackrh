@@ -96,7 +96,7 @@ for sub, sub_items in iter_items.items():
                     name="selectfiles")
 
     # Distortion correction using topup
-    bg_fmap = JoinNode(BIDSDataGrabber(infields = ['subject'], base_dir=experiment_dir), name='bg_fmap', joinsource='infosource', joinfield='subject')
+    bg_fmap = JoinNode(BIDSDataGrabber(infields = ['subject'], base_dir=experiment_dir, database_path=path.abspath(path.join('..','bidsdatabase'))), name='bg_fmap', joinsource='infosource', joinfield='subject')
     bg_fmap.inputs.output_query= {'fmap': {'datatype':'fmap', "extension": ["nii", ".nii.gz"]}}
     hmc_fmaps = MapNode(fsl.MCFLIRT(), iterfield='in_file', name='hmc_fmaps')
     mean_fmaps = MapNode(fsl.maths.MeanImage(), iterfield='in_file', name='mean_fmaps')
@@ -161,8 +161,16 @@ for sub, sub_items in iter_items.items():
                 fmap_json = affine = json.load(f)
                 readout_times[ah].append(fmap_json['EffectiveEchoSpacing'])
                 encoding_direction[ah].append(remap[fmap_json['PhaseEncodingDirection']])
-
+        
         longest_key = max(ahs, key= lambda x: len(set(ahs[x])))
+
+        print(ahs)
+        # TODO: Need to adjust so that session-specific fieldmaps are used
+        if len(ahs[longest_key])<2:
+            ahs={'all': [x for k,v in ahs.items() for x in v ]} 
+            encoding_direction={'all': [x for k,v in encoding_direction.items() for x in v ]} 
+            readout_times={'all': [x for k,v in readout_times.items()  for x in v]} 
+            longest_key='all'
 
         if encoding_direction[longest_key][0][0]==encoding_direction[longest_key][1][0]:
             applytopup_method='lsr'
@@ -174,11 +182,11 @@ for sub, sub_items in iter_items.items():
 
     get_coreg_reference_node = Node(Function(function=get_coreg_reference, input_names=['in_files'], output_names=['reference']), name='get_coreg_reference')
 
-    select_fmaps_node = Node(Function(function=select_fmaps, input_names=['in_files'], output_names=['out_files', 'encoding_direction', 'readout_times', 'applytopup_method']), name='select_maps')
+    select_fmaps_node = Node(Function(function=select_fmaps, input_names=['in_files'], output_names=['out_files', 'encoding_direction', 'readout_times', 'applytopup_method']), name='select_fmaps')
 
     topup = Node(fsl.TOPUP(), name='topup')
 
-    applytopup = Node(fsl.ApplyTOPUP(), name='applytopup')
+    applytopup = JoinNode(fsl.ApplyTOPUP(), joinsource = 'infosource', joinfield='in_files', name='applytopup')
 
     coreg_runs = Node(fsl.FLIRT(), name='coreg_runs')
     apply_xfm = Node(fsl.preprocess.ApplyXFM(), name='apply_coreg_runs')
@@ -191,40 +199,42 @@ for sub, sub_items in iter_items.items():
     template = '/projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/templates/nihpd_asym/nihpd_asym_02-05_t2w.nii'
     # or alternatively template = Info.standard_image('MNI152_T1_1mm.nii.gz')
 
-    # Registration - computes registration between subject's anatomy & the MNI template
-    antsreg = Node(ants.Registration(), name='antsreg_epi_to_template')
-    antsreg.inputs.fixed_image = template
-    antsreg.inputs.output_transform_prefix = "output_"
-    antsreg.inputs.initial_moving_transform_com = True
-    antsreg.inputs.transforms = ['Affine', 'SyN']
-    antsreg.inputs.transform_parameters = [(2.0,), (0.25, 3.0, 0.0)]
-    antsreg.inputs.number_of_iterations = [[1500, 200], [100, 50, 30]]
-    antsreg.inputs.dimension = 3
-    antsreg.inputs.write_composite_transform = True
-    antsreg.inputs.collapse_output_transforms = False
-    antsreg.inputs.initialize_transforms_per_stage = False
-    antsreg.inputs.metric = ['Mattes']*2
-    antsreg.inputs.metric_weight = [1]*2 # Default (value ignored currently by ANTs)
-    antsreg.inputs.radius_or_number_of_bins = [32]*2
-    antsreg.inputs.sampling_strategy = ['Random', None]
-    antsreg.inputs.sampling_percentage = [0.05, None]
-    antsreg.inputs.convergence_threshold = [1.e-8, 1.e-9]
-    antsreg.inputs.convergence_window_size = [20]*2
-    antsreg.inputs.smoothing_sigmas = [[1,0], [2,1,0]]
-    antsreg.inputs.shrink_factors = [[2,1], [3,2,1]]
-    antsreg.inputs.use_estimate_learning_rate_once = [True, True]
-    antsreg.inputs.use_histogram_matching = [True, True] # This is the default
-    antsreg.inputs.output_warped_image = 'output_warped_image.nii.gz'
+    # AFFINE registration
+    flirt_to_template = Node(fsl.FLIRT(bins=640, cost_func='mutualinfo', dof=12, reference=template))
+#     # Registration - computes registration between subject's anatomy & the MNI template
+#     antsreg = Node(ants.Registration(), name='antsreg_epi_to_template')
+#     antsreg.inputs.fixed_image = template
+#     antsreg.inputs.output_transform_prefix = "output_"
+#     antsreg.inputs.initial_moving_transform_com = True
+#     antsreg.inputs.transforms = ['Affine', 'SyN']
+#     antsreg.inputs.transform_parameters = [(2.0,), (0.25, 3.0, 0.0)]
+#     antsreg.inputs.number_of_iterations = [[1500, 200], [100, 50, 30]]
+#     antsreg.inputs.dimension = 3
+#     antsreg.inputs.write_composite_transform = True
+#     antsreg.inputs.collapse_output_transforms = False
+#     antsreg.inputs.initialize_transforms_per_stage = False
+#     antsreg.inputs.metric = ['Mattes']*2
+#     antsreg.inputs.metric_weight = [1]*2 # Default (value ignored currently by ANTs)
+#     antsreg.inputs.radius_or_number_of_bins = [32]*2
+#     antsreg.inputs.sampling_strategy = ['Random', None]
+#     antsreg.inputs.sampling_percentage = [0.05, None]
+#     antsreg.inputs.convergence_threshold = [1.e-8, 1.e-9]
+#     antsreg.inputs.convergence_window_size = [20]*2
+#     antsreg.inputs.smoothing_sigmas = [[1,0], [2,1,0]]
+#     antsreg.inputs.shrink_factors = [[2,1], [3,2,1]]
+#     antsreg.inputs.use_estimate_learning_rate_once = [True, True]
+#     antsreg.inputs.use_histogram_matching = [True, True] # This is the default
+#     antsreg.inputs.output_warped_image = 'output_warped_image.nii.gz'
 
-    # Extra
-    antsreg.inputs.winsorize_lower_quantile = 0.025
-    antsreg.inputs.winsorize_upper_quantile = 0.975
-#    antsreg.inputs.save_state = 'trans.mat'
-#    antsreg.inputs.restore_state = 'trans.mat'
-#    antsreg.inputs.initialize_transforms_per_stage = True
-#    antsreg.inputs.collapse_output_transforms = True
-    antsreg.interface.num_threads = 8
-    antsreg.interface.estimated_memory_gb = 2
+#     # Extra
+#     antsreg.inputs.winsorize_lower_quantile = 0.025
+#     antsreg.inputs.winsorize_upper_quantile = 0.975
+# #    antsreg.inputs.save_state = 'trans.mat'
+# #    antsreg.inputs.restore_state = 'trans.mat'
+# #    antsreg.inputs.initialize_transforms_per_stage = True
+# #    antsreg.inputs.collapse_output_transforms = True
+#     antsreg.interface.num_threads = 8
+#     antsreg.interface.estimated_memory_gb = 2
 
     # BOLD preprocessing workflow
 
@@ -274,6 +284,7 @@ for sub, sub_items in iter_items.items():
     preproc.connect(coreg_runs, "out_matrix_file",apply_xfm, "in_matrix_file")
 
     # Reorient means to space of reference run
+    
     preproc.connect(get_coreg_reference_node, "reference", apply_xfm_to_mean, "reference")
     preproc.connect(runmean, "out_file", apply_xfm_to_mean, "in_file")
     preproc.connect(coreg_runs, "out_matrix_file",apply_xfm_to_mean, "in_matrix_file")
@@ -282,6 +293,7 @@ for sub, sub_items in iter_items.items():
     preproc.connect(apply_xfm_to_mean, "out_file", submean, "images")
 
     # preproc.connect(submean, "output_average_image", antsreg, "moving_image")
+    preproc.connect(submean, "output_average_image", flirt_to_template, "in_file")
 
 
 
@@ -299,7 +311,9 @@ for sub, sub_items in iter_items.items():
 
     # RUN
     
-    #preproc.run()
+    # Single threaded?
+    preproc.run()
 
+    # Or SLURM?
     #preproc.run(plugin='SLURMGraph', plugin_args = {'dont_resubmit_completed_jobs': True})
-    #'MultiProc', plugin_args={'n_procs': 8})
+    
