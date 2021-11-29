@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# Run heudiconv for all subjects
+#  Rhodri Cusack and the FOUNDCOG team, TCIN Dublin 2021-11-26, cusackrh@tcd.ie
 for subpath in  /mnt/siemens-dicom/anon/*FOUNDCOG; do
     sub="$(basename -- $subpath | sed 's/_RC_FOUNDCOG//g')"
     echo "Working on $sub"

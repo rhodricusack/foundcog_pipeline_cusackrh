@@ -21,7 +21,7 @@ def infotodict(seqinfo):
     func_rest10 = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest10_dir-AP_run-{item:03d}_bold')
     dwi = create_key('sub-{subject}/{session}/dwi/sub-{subject}_{session}_dir-{dir}_run-{item:03d}_dwi')
     fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_dir-{dir}_run-{item:03d}_epi')
-    info = {anat_t2: [], func_video: [], func_pictures: [], func_rest5: [], func_rest10: [], dwi: [], fmap:[] }
+    info = {anat_t1: [], anat_t2: [], func_video: [], func_pictures: [], func_rest5: [], func_rest10: [], dwi: [], fmap:[] }
     
     for idx, s in enumerate(seqinfo):
         if 't2_tse_tra_p3_noisereduction' in s.protocol_name:

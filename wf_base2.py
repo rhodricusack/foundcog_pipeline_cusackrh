@@ -105,7 +105,7 @@ for sub, sub_items in iter_items.items():
                     name="datasink")
 
     # Distortion correction using topup
-    bg_fmap = JoinNode(BIDSDataGrabber(infields = ['subject'], base_dir=experiment_dir, database_path=path.abspath(path.join('..','bidsdatabase'))), name='bg_fmap', joinsource='infosource', joinfield='subject')
+    bg_fmap = JoinNode(BIDSDataGrabber(infields = ['subject', 'session'], base_dir=experiment_dir, database_path=path.abspath(path.join('..','bidsdatabase'))), name='bg_fmap', joinsource='infosource', joinfield=['subject','session'])
     bg_fmap.inputs.output_query= {'fmap': {'datatype':'fmap', "extension": ["nii", ".nii.gz"]}}
     hmc_fmaps = MapNode(fsl.MCFLIRT(), iterfield='in_file', name='hmc_fmaps')
     mean_fmaps = MapNode(fsl.maths.MeanImage(), iterfield='in_file', name='mean_fmaps')
@@ -265,6 +265,7 @@ for sub, sub_items in iter_items.items():
                                     ('task_name', 'task_name'),
                                     ('run', 'run')])
                                     ])
+
     preproc.connect([(infosource, bg_fmap, [('subject_id', 'subject')])])
 
     # Calculate PE polar distortion correction field using topup
