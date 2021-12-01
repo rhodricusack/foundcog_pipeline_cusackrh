@@ -1,0 +1,298 @@
+WARNING: Could not check for version updates: Connection to server could not be made
+INFO: Running heudiconv version 0.10.0 latest Unknown
+INFO: Need to process 1 study sessions
+INFO: PROCESSING STARTS: {'subject': 'IRC_9', 'outdir': '/projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/', 'session': '2'}
+INFO: Processing 2116 dicoms
+WARNING: IRC_9 contained nonalphanumeric character(s), subject ID was cleaned to be IRC9
+INFO: Analyzing 2116 dicoms
+INFO: Generated sequence info for 11 studies with 2116 entries total
+INFO: Doing conversion using dcm2niix
+INFO: Converting /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-videos_dir-AP_run-001_bold (475 DICOMs) -> /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func . Converter: dcm2niix . Output types: ('nii.gz',)
+*** infotodict
+{('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:03d}_t1w', ('nii.gz',), None): [], ('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:03d}_t2w', ('nii.gz',), None): [], ('sub-{subject}/{session}/func/sub-{subject}_{session}_task-videos_dir-AP_run-{item:03d}_bold', ('nii.gz',), None): ['6-cmrr_mbep2d_bold_videos_AP', '10-cmrr_mbep2d_bold_videos_AP'], ('sub-{subject}/{session}/func/sub-{subject}_{session}_task-pictures_dir-AP_run-{item:03d}_bold', ('nii.gz',), None): ['5-cmrr_mbep2d_bold_Pictures_AP', '9-cmrr_mbep2d_bold_Pictures_AP'], ('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest5_dir-AP_run-{item:03d}_bold', ('nii.gz',), None): [], ('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest10_dir-AP_run-{item:03d}_bold', ('nii.gz',), None): [], ('sub-{subject}/{session}/dwi/sub-{subject}_{session}_dir-{dir}_run-{item:03d}_dwi', ('nii.gz',), None): [], ('sub-{subject}/{session}/fmap/sub-{subject}_{session}_dir-{dir}_run-{item:03d}_epi', ('nii.gz',), None): [{'item': '7-cmrr_mbep2d_se_AP', 'dir': 'AP'}, {'item': '8-cmrr_mbep2d_se_PA', 'dir': 'PA'}]}
+211130-20:45:05,656 nipype.workflow INFO:
+	 [Node] Setting-up "convert" in "/tmp/dcm2niixkzp1um9o/convert".
+INFO: [Node] Setting-up "convert" in "/tmp/dcm2niixkzp1um9o/convert".
+211130-20:45:06,33 nipype.workflow INFO:
+	 [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+INFO: [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+211130-20:45:08,256 nipype.interface INFO:
+	 stdout 2021-11-30T20:45:08.256594:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+INFO: stdout 2021-11-30T20:45:08.256594:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+211130-20:45:08,257 nipype.interface INFO:
+	 stdout 2021-11-30T20:45:08.256594:Found 475 DICOM file(s)
+INFO: stdout 2021-11-30T20:45:08.256594:Found 475 DICOM file(s)
+211130-20:45:08,257 nipype.interface INFO:
+	 stdout 2021-11-30T20:45:08.256594:Convert 475 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-videos_dir-AP_run-001_bold_heudiconv663 (64x64x36x475)
+INFO: stdout 2021-11-30T20:45:08.256594:Convert 475 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-videos_dir-AP_run-001_bold_heudiconv663 (64x64x36x475)
+211130-20:45:31,194 nipype.interface INFO:
+	 stdout 2021-11-30T20:45:31.194478:Conversion required 24.955191 seconds (20.770000 for core code).
+INFO: stdout 2021-11-30T20:45:31.194478:Conversion required 24.955191 seconds (20.770000 for core code).
+211130-20:45:31,237 nipype.workflow INFO:
+	 [Node] Finished "convert", elapsed time 25.04408s.
+INFO: [Node] Finished "convert", elapsed time 25.04408s.
+211130-20:45:31,343 nipype.workflow INFO:
+	 [Node] Setting-up "embedder" in "/tmp/embedmetag62xc76x/embedder".
+INFO: [Node] Setting-up "embedder" in "/tmp/embedmetag62xc76x/embedder".
+211130-20:45:31,422 nipype.workflow INFO:
+	 [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+INFO: [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+211130-20:46:25,589 nipype.workflow INFO:
+	 [Node] Finished "embedder", elapsed time 54.165515s.
+INFO: [Node] Finished "embedder", elapsed time 54.165515s.
+INFO: Post-treating /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-videos_dir-AP_run-001_bold.json file
+INFO: Converting /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-videos_dir-AP_run-002_bold (475 DICOMs) -> /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func . Converter: dcm2niix . Output types: ('nii.gz',)
+211130-20:46:29,808 nipype.workflow INFO:
+	 [Node] Setting-up "convert" in "/tmp/dcm2niix_ysgqw4v/convert".
+INFO: [Node] Setting-up "convert" in "/tmp/dcm2niix_ysgqw4v/convert".
+211130-20:46:30,227 nipype.workflow INFO:
+	 [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+INFO: [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+211130-20:47:12,197 nipype.interface INFO:
+	 stdout 2021-11-30T20:47:12.196809:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+INFO: stdout 2021-11-30T20:47:12.196809:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+211130-20:47:12,197 nipype.interface INFO:
+	 stdout 2021-11-30T20:47:12.196809:Found 475 DICOM file(s)
+INFO: stdout 2021-11-30T20:47:12.196809:Found 475 DICOM file(s)
+211130-20:47:12,198 nipype.interface INFO:
+	 stdout 2021-11-30T20:47:12.196809:Convert 475 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-videos_dir-AP_run-002_bold_heudiconv805 (64x64x36x475)
+INFO: stdout 2021-11-30T20:47:12.196809:Convert 475 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-videos_dir-AP_run-002_bold_heudiconv805 (64x64x36x475)
+211130-20:47:35,21 nipype.interface INFO:
+	 stdout 2021-11-30T20:47:35.020963:Conversion required 64.695756 seconds (20.590000 for core code).
+INFO: stdout 2021-11-30T20:47:35.020963:Conversion required 64.695756 seconds (20.590000 for core code).
+211130-20:47:35,91 nipype.workflow INFO:
+	 [Node] Finished "convert", elapsed time 64.862048s.
+INFO: [Node] Finished "convert", elapsed time 64.862048s.
+211130-20:47:35,196 nipype.workflow INFO:
+	 [Node] Setting-up "embedder" in "/tmp/embedmetaohr1069x/embedder".
+INFO: [Node] Setting-up "embedder" in "/tmp/embedmetaohr1069x/embedder".
+211130-20:47:35,274 nipype.workflow INFO:
+	 [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+INFO: [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+211130-20:48:26,328 nipype.workflow INFO:
+	 [Node] Finished "embedder", elapsed time 50.915628s.
+INFO: [Node] Finished "embedder", elapsed time 50.915628s.
+INFO: Post-treating /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-videos_dir-AP_run-002_bold.json file
+INFO: Converting /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-pictures_dir-AP_run-001_bold (500 DICOMs) -> /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func . Converter: dcm2niix . Output types: ('nii.gz',)
+211130-20:48:30,115 nipype.workflow INFO:
+	 [Node] Setting-up "convert" in "/tmp/dcm2niixtl3p97gu/convert".
+INFO: [Node] Setting-up "convert" in "/tmp/dcm2niixtl3p97gu/convert".
+211130-20:48:30,511 nipype.workflow INFO:
+	 [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+INFO: [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+211130-20:48:51,969 nipype.interface INFO:
+	 stdout 2021-11-30T20:48:51.969581:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+INFO: stdout 2021-11-30T20:48:51.969581:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+211130-20:48:51,970 nipype.interface INFO:
+	 stdout 2021-11-30T20:48:51.969581:Found 500 DICOM file(s)
+INFO: stdout 2021-11-30T20:48:51.969581:Found 500 DICOM file(s)
+211130-20:48:51,970 nipype.interface INFO:
+	 stdout 2021-11-30T20:48:51.969581:Convert 500 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-pictures_dir-AP_run-001_bold_heudiconv940 (64x64x36x500)
+INFO: stdout 2021-11-30T20:48:51.969581:Convert 500 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-pictures_dir-AP_run-001_bold_heudiconv940 (64x64x36x500)
+211130-20:49:15,708 nipype.interface INFO:
+	 stdout 2021-11-30T20:49:15.708542:Conversion required 43.673069 seconds (21.230000 for core code).
+INFO: stdout 2021-11-30T20:49:15.708542:Conversion required 43.673069 seconds (21.230000 for core code).
+211130-20:49:15,995 nipype.workflow INFO:
+	 [Node] Finished "convert", elapsed time 45.481651s.
+INFO: [Node] Finished "convert", elapsed time 45.481651s.
+211130-20:49:16,86 nipype.workflow INFO:
+	 [Node] Setting-up "embedder" in "/tmp/embedmeta5mvf6usf/embedder".
+INFO: [Node] Setting-up "embedder" in "/tmp/embedmeta5mvf6usf/embedder".
+211130-20:49:16,167 nipype.workflow INFO:
+	 [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+INFO: [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+211130-20:50:10,910 nipype.workflow INFO:
+	 [Node] Finished "embedder", elapsed time 54.740581s.
+INFO: [Node] Finished "embedder", elapsed time 54.740581s.
+INFO: Post-treating /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-pictures_dir-AP_run-001_bold.json file
+INFO: Converting /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-pictures_dir-AP_run-002_bold (500 DICOMs) -> /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func . Converter: dcm2niix . Output types: ('nii.gz',)
+211130-20:50:14,583 nipype.workflow INFO:
+	 [Node] Setting-up "convert" in "/tmp/dcm2niixy41_eym_/convert".
+INFO: [Node] Setting-up "convert" in "/tmp/dcm2niixy41_eym_/convert".
+211130-20:50:14,948 nipype.workflow INFO:
+	 [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+INFO: [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+211130-20:50:34,103 nipype.interface INFO:
+	 stdout 2021-11-30T20:50:34.103749:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+INFO: stdout 2021-11-30T20:50:34.103749:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+211130-20:50:34,104 nipype.interface INFO:
+	 stdout 2021-11-30T20:50:34.103749:Found 500 DICOM file(s)
+INFO: stdout 2021-11-30T20:50:34.103749:Found 500 DICOM file(s)
+211130-20:50:34,104 nipype.interface INFO:
+	 stdout 2021-11-30T20:50:34.103749:Convert 500 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-pictures_dir-AP_run-002_bold_heudiconv383 (64x64x36x500)
+INFO: stdout 2021-11-30T20:50:34.103749:Convert 500 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-pictures_dir-AP_run-002_bold_heudiconv383 (64x64x36x500)
+211130-20:50:57,799 nipype.interface INFO:
+	 stdout 2021-11-30T20:50:57.799540:Conversion required 42.762628 seconds (21.160000 for core code).
+INFO: stdout 2021-11-30T20:50:57.799540:Conversion required 42.762628 seconds (21.160000 for core code).
+211130-20:50:57,841 nipype.workflow INFO:
+	 [Node] Finished "convert", elapsed time 42.890549s.
+INFO: [Node] Finished "convert", elapsed time 42.890549s.
+211130-20:50:57,961 nipype.workflow INFO:
+	 [Node] Setting-up "embedder" in "/tmp/embedmeta8bsg0thq/embedder".
+INFO: [Node] Setting-up "embedder" in "/tmp/embedmeta8bsg0thq/embedder".
+211130-20:50:58,41 nipype.workflow INFO:
+	 [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+INFO: [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+211130-20:51:51,53 nipype.workflow INFO:
+	 [Node] Finished "embedder", elapsed time 53.008709s.
+INFO: [Node] Finished "embedder", elapsed time 53.008709s.
+INFO: Post-treating /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/func/sub-IRC9_ses-2_task-pictures_dir-AP_run-002_bold.json file
+INFO: Converting /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap/sub-IRC9_ses-2_dir-AP_run-001_epi (10 DICOMs) -> /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap . Converter: dcm2niix . Output types: ('nii.gz',)
+211130-20:51:51,519 nipype.workflow INFO:
+	 [Node] Setting-up "convert" in "/tmp/dcm2niixh0562xja/convert".
+INFO: [Node] Setting-up "convert" in "/tmp/dcm2niixh0562xja/convert".
+211130-20:51:51,539 nipype.workflow INFO:
+	 [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+INFO: [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+211130-20:51:51,977 nipype.interface INFO:
+	 stdout 2021-11-30T20:51:51.977240:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+INFO: stdout 2021-11-30T20:51:51.977240:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+211130-20:51:51,977 nipype.interface INFO:
+	 stdout 2021-11-30T20:51:51.977240:Found 10 DICOM file(s)
+INFO: stdout 2021-11-30T20:51:51.977240:Found 10 DICOM file(s)
+211130-20:51:51,978 nipype.interface INFO:
+	 stdout 2021-11-30T20:51:51.977240:Convert 10 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap/sub-IRC9_ses-2_dir-AP_run-001_epi_heudiconv622 (64x64x36x10)
+INFO: stdout 2021-11-30T20:51:51.977240:Convert 10 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap/sub-IRC9_ses-2_dir-AP_run-001_epi_heudiconv622 (64x64x36x10)
+211130-20:51:52,464 nipype.interface INFO:
+	 stdout 2021-11-30T20:51:52.464574:Conversion required 0.838520 seconds (0.430000 for core code).
+INFO: stdout 2021-11-30T20:51:52.464574:Conversion required 0.838520 seconds (0.430000 for core code).
+211130-20:51:52,505 nipype.workflow INFO:
+	 [Node] Finished "convert", elapsed time 0.964118s.
+INFO: [Node] Finished "convert", elapsed time 0.964118s.
+WARNING: Failed to find task field in /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap/sub-IRC9_ses-2_dir-AP_run-001_epi.json.
+211130-20:51:52,544 nipype.workflow INFO:
+	 [Node] Setting-up "embedder" in "/tmp/embedmetanjy1av2_/embedder".
+INFO: [Node] Setting-up "embedder" in "/tmp/embedmetanjy1av2_/embedder".
+211130-20:51:52,554 nipype.workflow INFO:
+	 [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+INFO: [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+211130-20:51:53,550 nipype.workflow INFO:
+	 [Node] Finished "embedder", elapsed time 0.993901s.
+INFO: [Node] Finished "embedder", elapsed time 0.993901s.
+INFO: Post-treating /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap/sub-IRC9_ses-2_dir-AP_run-001_epi.json file
+INFO: Converting /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap/sub-IRC9_ses-2_dir-PA_run-002_epi (10 DICOMs) -> /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap . Converter: dcm2niix . Output types: ('nii.gz',)
+211130-20:51:53,666 nipype.workflow INFO:
+	 [Node] Setting-up "convert" in "/tmp/dcm2niixnmw025bq/convert".
+INFO: [Node] Setting-up "convert" in "/tmp/dcm2niixnmw025bq/convert".
+211130-20:51:53,682 nipype.workflow INFO:
+	 [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+INFO: [Node] Executing "convert" <nipype.interfaces.dcm2nii.Dcm2niix>
+211130-20:51:54,54 nipype.interface INFO:
+	 stdout 2021-11-30T20:51:54.054171:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+INFO: stdout 2021-11-30T20:51:54.054171:Chris Rorden's dcm2niiX version v1.0.20211006  GCC9.3.0 x86-64 (64-bit Linux)
+211130-20:51:54,54 nipype.interface INFO:
+	 stdout 2021-11-30T20:51:54.054171:Found 10 DICOM file(s)
+INFO: stdout 2021-11-30T20:51:54.054171:Found 10 DICOM file(s)
+211130-20:51:54,55 nipype.interface INFO:
+	 stdout 2021-11-30T20:51:54.054171:Convert 10 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap/sub-IRC9_ses-2_dir-PA_run-002_epi_heudiconv448 (64x64x36x10)
+INFO: stdout 2021-11-30T20:51:54.054171:Convert 10 DICOM as /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap/sub-IRC9_ses-2_dir-PA_run-002_epi_heudiconv448 (64x64x36x10)
+211130-20:51:54,534 nipype.interface INFO:
+	 stdout 2021-11-30T20:51:54.534792:Conversion required 0.786551 seconds (0.430000 for core code).
+INFO: stdout 2021-11-30T20:51:54.534792:Conversion required 0.786551 seconds (0.430000 for core code).
+211130-20:51:54,576 nipype.workflow INFO:
+	 [Node] Finished "convert", elapsed time 0.891323s.
+INFO: [Node] Finished "convert", elapsed time 0.891323s.
+WARNING: Failed to find task field in /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap/sub-IRC9_ses-2_dir-PA_run-002_epi.json.
+211130-20:51:54,620 nipype.workflow INFO:
+	 [Node] Setting-up "embedder" in "/tmp/embedmetaezcrvkui/embedder".
+INFO: [Node] Setting-up "embedder" in "/tmp/embedmetaezcrvkui/embedder".
+211130-20:51:54,630 nipype.workflow INFO:
+	 [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+INFO: [Node] Executing "embedder" <nipype.interfaces.utility.wrappers.Function>
+211130-20:51:55,627 nipype.workflow INFO:
+	 [Node] Finished "embedder", elapsed time 0.994905s.
+INFO: [Node] Finished "embedder", elapsed time 0.994905s.
+INFO: Post-treating /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/sub-IRC9/ses-2/fmap/sub-IRC9_ses-2_dir-PA_run-002_epi.json file
+DEBUG: Attempting to acquire lock 47106325931056 on /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/heudiconv.lock
+DEBUG: Lock 47106325931056 acquired on /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/heudiconv.lock
+INFO: Populating template files under /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/
+DEBUG: Attempting to release lock 47106325931056 on /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/heudiconv.lock
+DEBUG: Lock 47106325931056 released on /projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/heudiconv.lock
+INFO: PROCESSING DONE: {'subject': 'IRC_9', 'outdir': '/projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/bids/', 'session': '2'}
+
+
+###############################################################################
+TCHPC Cluster: tcin
+Job 9647 (heudiconv-SLURM.sh) for User 'cusackrh' in Account '(null)'
+Finished at: Tue Nov 30 20:51:57 GMT 2021
+
+Job efficiency estimates:
+=========================
+
+Use of uninitialized value $user in concatenation (.) or string at /usr/bin/seff line 154, <DATA> line 602.
+Job ID: 9647
+Cluster: tcin
+User/Group: /cusackrh
+State: COMPLETED (exit code 0)
+Cores: 1
+CPU Utilized: 00:05:48
+CPU Efficiency: 40.94% of 00:14:10 core-walltime
+Job Wall-clock time: 00:14:10
+Memory Utilized: 1.06 GB
+Memory Efficiency: 15.06% of 7.03 GB
+
+Job completion status:
+======================
+
+       JobID    JobName AllocCPUS NTasks NNodes     MaxRSS    MaxRSSNode  MaxDiskRead MaxDiskWrite    Elapsed      State ExitCode 
+------------ ---------- --------- ------ ------ ---------- ------------- ------------ ------------ ---------- ---------- -------- 
+9647         heudiconv+         1             1                                                      00:14:10  COMPLETED      0:0 
+9647.batch        batch         1      1      1   1110304K      tcin-n06        0.00M            0   00:14:10  COMPLETED      0:0 
+
+
+Job details:
+============
+
+JobId=9647 JobName=heudiconv-SLURM.sh
+   UserId=cusackrh(5948) GroupId=cusackrh(9753) MCS_label=N/A
+   Priority=4294892135 Nice=0 Account=(null) QOS=normal
+   JobState=COMPLETING Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   DerivedExitCode=0:0
+   RunTime=00:14:10 TimeLimit=04:00:00 TimeMin=N/A
+   SubmitTime=2021-11-30T20:37:44 EligibleTime=2021-11-30T20:37:44
+   AccrueTime=2021-11-30T20:37:44
+   StartTime=2021-11-30T20:37:47 EndTime=2021-11-30T20:51:57 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2021-11-30T20:37:47
+   Partition=compute AllocNode:Sid=tcin-n01:622
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=
+   BatchHost=tcin-n06
+   NumNodes=1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   TRES=cpu=1,node=1,billing=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   JOB_GRES=(null)
+     Nodes=tcin-n06 CPU_IDs=2 Mem=0 GRES=
+   MinCPUsNode=1 MinMemoryNode=7200M MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/foundcog_pipeline/heudiconv-SLURM.sh
+   WorkDir=/projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/foundcog_pipeline
+   StdErr=/projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/foundcog_pipeline/slurm-9647.out
+   StdIn=/dev/null
+   StdOut=/projects/pi-cusackrh/HPC_18_01039/cusackrh/foundcog/foundcog_pipeline/slurm-9647.out
+   Power=
+   NtasksPerTRES:0
+
+
+Disk quota details:
+===================
+
+Quota Type           Name  Filesystem     Usage in MB     Limit in MB    % Used
+-------------------------------------------------------------------------------
+USER             cusackrh       /home           5,002          51,200     9.77%
+USER             cusackrh   /projects          63,134               0       N/A
+
+GROUP         pi-cusackrh   /projects          76,875         204,800    37.54%
+
+
+Acknowledgements:
+=================
+
+Note that usage of TCHPC Resources *must* be acknowledged in all publications.
+
+Please see this page for details relevant to this cluster:
+
+http://www.tchpc.tcd.ie/resources/acknowledgementpolicy
+
+################################################################################

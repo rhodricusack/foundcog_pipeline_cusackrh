@@ -82,12 +82,9 @@ for sub, sub_items in iter_items.items():
     infosource_sub = Node(IdentityInterface(fields=['subject_id']), name="infosource_sub")
     infosource_sub.iterables = [('subject_id', [sub])]    
 
-    infosource_ses = Node(IdentityInterface(fields=['subject_id', 'session']), name="infosource_ses")
-    infosource_ses.iterables = [('session', sub_items['ses'])]
-
-    infosource = Node(IdentityInterface(fields=['subject_id', 'session', 'task_name', 'run']),
+    infosource = Node(IdentityInterface(fields=['session', 'task_name', 'run']),
                     name="infosource")
-    infosource.iterables = [('task_name', sub_items['task']),
+    infosource.iterables = [('session', sub_items['ses']),('task_name', sub_items['task']),
                             ('run', sub_items['run']),
                             ]
 
@@ -105,8 +102,10 @@ for sub, sub_items in iter_items.items():
                     name="datasink")
 
     # Distortion correction using topup
-    bg_fmap = JoinNode(BIDSDataGrabber(infields = ['subject'], base_dir=experiment_dir, database_path=path.abspath(path.join('..','bidsdatabase'))), name='bg_fmap', joinsource='infosource', joinfield='subject')
+    join_fmap = JoinNode(IdentityInterface(fields = ['subject']), name='join_fmap', joinsource='infosource', joinfield='subject')
+    bg_fmap = Node(BIDSDataGrabber(fields=['subject', 'session'], base_dir=experiment_dir, database_path=path.abspath(path.join('..','bidsdatabase'))), iterables=('session',session_list), name='bg_fmap') 
     bg_fmap.inputs.output_query= {'fmap': {'datatype':'fmap', "extension": ["nii", ".nii.gz"]}}
+    bg_fmap.raise_on_empty=False
     hmc_fmaps = MapNode(fsl.MCFLIRT(), iterfield='in_file', name='hmc_fmaps')
     mean_fmaps = MapNode(fsl.maths.MeanImage(), iterfield='in_file', name='mean_fmaps')
     merge_fmaps = Node(fsl.Merge(dimension='t'), name='merge_fmaps')
@@ -116,15 +115,18 @@ for sub, sub_items in iter_items.items():
                                 base_directory=experiment_dir),
                     name="selectfiles")
 
+    # Pick the output from the topup run corresponding to the right session
+    def select_by_session(session, applytopup_method, out_fieldcoef, out_movpar, out_enc_file):
+        sessind = int(session)-1
+        print("Session index %d"%sessind)
+        return applytopup_method[sessind], out_fieldcoef[sessind], out_movpar[sessind],out_enc_file[sessind]
+
     def postjoindump(joinedthing):
         print(f'Joined thing is {joinedthing}')
 
     # Gather all of bolds at end
     joinbold=JoinNode(IdentityInterface(fields=['in_file']), joinsource='infosource', joinfield='in_file', name='joinnode')
     
-    # Check results
-    postjoinfunctionode_inner = Node(Function(function=postjoindump, input_names=['joinedthing'], output_names=['thing']), name='postjoinfunctionnode')
-
     runmean = Node(fsl.maths.MeanImage(), name='runmean')
     
     
@@ -191,13 +193,19 @@ for sub, sub_items in iter_items.items():
         print(f'Affines {ahs} longest is {longest_key} encoding directions {encoding_direction[longest_key]} readout times {readout_times[longest_key]}')
         return ahs[longest_key], encoding_direction[longest_key], readout_times[longest_key], applytopup_method
 
-    get_coreg_reference_node = Node(Function(function=get_coreg_reference, input_names=['in_files'], output_names=['reference']), name='get_coreg_reference')
 
     select_fmaps_node = Node(Function(function=select_fmaps, input_names=['in_files'], output_names=['out_files', 'encoding_direction', 'readout_times', 'applytopup_method']), name='select_fmaps')
-
     topup = Node(fsl.TOPUP(), name='topup')
+    select_by_session_node = JoinNode(
+                                Function(function=select_by_session, 
+                                    input_names=["session", 'applytopup_method', "out_fieldcoef", "out_movpar", "out_enc_file"], 
+                                    output_names=['applytopup_method', "out_fieldcoef", "out_movpar", "out_enc_file"]),
+                                joinsource='bg_fmap', joinfield=['applytopup_method', "out_fieldcoef", "out_movpar", "out_enc_file"],
+                                name='select_by_session_node')
 
     applytopup = Node(fsl.ApplyTOPUP(), name='applytopup')
+
+    get_coreg_reference_node = Node(Function(function=get_coreg_reference, input_names=['in_files'], output_names=['reference']), name='get_coreg_reference')
 
     coreg_runs = Node(fsl.FLIRT(), name='coreg_runs')
     apply_xfm = Node(fsl.preprocess.ApplyXFM(), name='apply_coreg_runs')
@@ -212,40 +220,6 @@ for sub, sub_items in iter_items.items():
 
     # AFFINE registration
     flirt_to_template = Node(fsl.FLIRT(bins=640, cost_func='mutualinfo', dof=12, reference=template), name='flirt')
-#     # Registration - computes registration between subject's anatomy & the MNI template
-#     antsreg = Node(ants.Registration(), name='antsreg_epi_to_template')
-#     antsreg.inputs.fixed_image = template
-#     antsreg.inputs.output_transform_prefix = "output_"
-#     antsreg.inputs.initial_moving_transform_com = True
-#     antsreg.inputs.transforms = ['Affine', 'SyN']
-#     antsreg.inputs.transform_parameters = [(2.0,), (0.25, 3.0, 0.0)]
-#     antsreg.inputs.number_of_iterations = [[1500, 200], [100, 50, 30]]
-#     antsreg.inputs.dimension = 3
-#     antsreg.inputs.write_composite_transform = True
-#     antsreg.inputs.collapse_output_transforms = False
-#     antsreg.inputs.initialize_transforms_per_stage = False
-#     antsreg.inputs.metric = ['Mattes']*2
-#     antsreg.inputs.metric_weight = [1]*2 # Default (value ignored currently by ANTs)
-#     antsreg.inputs.radius_or_number_of_bins = [32]*2
-#     antsreg.inputs.sampling_strategy = ['Random', None]
-#     antsreg.inputs.sampling_percentage = [0.05, None]
-#     antsreg.inputs.convergence_threshold = [1.e-8, 1.e-9]
-#     antsreg.inputs.convergence_window_size = [20]*2
-#     antsreg.inputs.smoothing_sigmas = [[1,0], [2,1,0]]
-#     antsreg.inputs.shrink_factors = [[2,1], [3,2,1]]
-#     antsreg.inputs.use_estimate_learning_rate_once = [True, True]
-#     antsreg.inputs.use_histogram_matching = [True, True] # This is the default
-#     antsreg.inputs.output_warped_image = 'output_warped_image.nii.gz'
-
-#     # Extra
-#     antsreg.inputs.winsorize_lower_quantile = 0.025
-#     antsreg.inputs.winsorize_upper_quantile = 0.975
-# #    antsreg.inputs.save_state = 'trans.mat'
-# #    antsreg.inputs.restore_state = 'trans.mat'
-# #    antsreg.inputs.initialize_transforms_per_stage = True
-# #    antsreg.inputs.collapse_output_transforms = True
-#     antsreg.interface.num_threads = 8
-#     antsreg.interface.estimated_memory_gb = 2
 
     # BOLD preprocessing workflow
 
@@ -255,9 +229,7 @@ for sub, sub_items in iter_items.items():
     preproc = Workflow(name='preproc')
     preproc.base_dir = path.join(experiment_dir, working_dir, output_dir)
 
-    preproc.connect([(infosource_sub, infosource_ses, [('subject_id', 'subject_id')]),
-                                    ])
-    preproc.connect([(infosource_ses, infosource, [('subject_id', 'subject_id'), ('session', 'session')]),
+    preproc.connect([(infosource_sub, infosource, [('subject_id', 'subject_id')]),
                                     ])
 
     preproc.connect([(infosource, selectfiles, [('subject_id', 'subject_id'),
@@ -265,9 +237,12 @@ for sub, sub_items in iter_items.items():
                                     ('task_name', 'task_name'),
                                     ('run', 'run')])
                                     ])
-    preproc.connect([(infosource, bg_fmap, [('subject_id', 'subject')])])
+    preproc.connect([(infosource, join_fmap, [('subject_id', 'subject')])])
 
     # Calculate PE polar distortion correction field using topup
+    # This will iterate for the two sessions
+    preproc.connect([(join_fmap, bg_fmap, [('subject', 'subject')])])
+
     preproc.connect([(bg_fmap, select_fmaps_node, [('fmap', 'in_files')])])
     preproc.connect([(select_fmaps_node, hmc_fmaps, [('out_files', 'in_file')])])
     preproc.connect([(hmc_fmaps, mean_fmaps, [('out_file', 'in_file')])])
@@ -280,10 +255,21 @@ for sub, sub_items in iter_items.items():
     
     # Apply topup
     preproc.connect(bold_preproc, "outputnode.func", applytopup, "in_files")
-    preproc.connect(topup, "out_fieldcoef", applytopup, "in_topup_fieldcoef")
-    preproc.connect(topup, "out_movpar", applytopup, "in_topup_movpar")
-    preproc.connect(topup, "out_enc_file", applytopup, "encoding_file")
-    preproc.connect(select_fmaps_node, "applytopup_method", applytopup, "method")
+    
+    # Join the fieldmaps processed for the each of the two sessions 
+    #  and then pick the fieldmap from the session that matches the current file
+    preproc.connect(infosource, "session", select_by_session_node, "session")
+    preproc.connect(topup, "out_fieldcoef", select_by_session_node, "out_fieldcoef")
+    preproc.connect(topup, "out_movpar", select_by_session_node, "out_movpar")
+    preproc.connect(topup, "out_enc_file", select_by_session_node, "out_enc_file")
+    preproc.connect(select_fmaps_node, "applytopup_method", select_by_session_node, "applytopup_method")
+    
+    # Pass this to applytopup
+    preproc.connect(select_by_session_node, "out_fieldcoef", applytopup, "in_topup_fieldcoef")
+    preproc.connect(select_by_session_node, "out_movpar", applytopup, "in_topup_movpar")
+    preproc.connect(select_by_session_node, "out_enc_file", applytopup, "encoding_file")
+    preproc.connect(select_by_session_node, "applytopup_method", applytopup, "method")
+
 
     # Find session means, pick best reference and coregister all means to this one    
     preproc.connect(applytopup, "out_corrected", runmean, "in_file")
@@ -330,7 +316,7 @@ for sub, sub_items in iter_items.items():
     
     # Single threaded?
     # preproc.run()
-
+ 
     # Or SLURM?
     preproc.run(plugin='SLURMGraph', plugin_args = {'dont_resubmit_completed_jobs': True})
     
